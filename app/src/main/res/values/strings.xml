@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">JMP</string>
+    <string name="navigation_drawer_open">open navigation drawer</string>
+    <string name="navigation_drawer_close">close navigation drawer</string>
+    <string name="exit">Exit</string>
+    <string name="close">close</string>
+    <string name="skip"><u>skip</u></string>
+</resources>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.UpdateSiteActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textSize="20dp"
+           app:hintTextAppearance="@style/TextAppearance.AppCompat.Body2"
+           android:textColor="@color/colorPrimary"
+           android:id="@+id/site_name"
+           android:inputType="text"
+           android:hint="Site Name"
+           android:textColorHint="@color/colorPrimary"
+           android:layout_marginLeft="5dp"
+           android:layout_marginTop="15dp"
+           android:background="@drawable/spinner_design"
+           android:padding="13.5dp"
+
+           />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/site_area"
+                android:layout_weight="1"
+                android:hint="Site Area"
+                android:inputType="number"
+                android:textColorHint="@color/colorPrimary"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/spinner_design"
+                android:padding="13.5dp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/spinner_design"
+                android:padding="13.5dp"
+                android:text="sq ft."/>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/site_price"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:hint="Site Price"
+                android:textColorHint="@color/colorPrimary"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/spinner_design"
+                android:padding="13.5dp"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="2"
+                android:gravity="center"
+
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/spinner_design"
+                android:padding="13.5dp"
+                android:text="/ sq ft."/>
+
+
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/site_description"
+            android:hint="Site Description"
+            android:inputType="text"
+            android:textColorHint="@color/colorPrimary"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/spinner_design"
+            android:padding="13.5dp"
+
+            />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Site Location"
+            android:onClick="addlocation"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:id="@+id/constraint"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:onClick="updatesite"
+            android:layout_marginBottom="50dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:indeterminate="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:indeterminateTint="@color/white"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/register"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update Site"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:id="@+id/register"
+                android:padding="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textStyle="normal"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="20dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

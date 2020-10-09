@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/login"
+            android:icon="@drawable/login_icon"
+            android:onClick="login"
+            android:title="LOGIN"/>
+        <item
+            android:id="@+id/admin_control"
+            android:icon="@drawable/admin_icon"
+            android:visible="true"
+
+            android:iconTint="@color/navi_icon"
+            android:title="ADMIN CONTROL" />
+
+        <item
+            android:id="@+id/userregister"
+            android:icon="@drawable/activate_user"
+            android:visible="true"
+            android:iconTint="@color/navi_icon"
+            android:title="USER REGISTER" />
+
+
+        <item
+            android:id="@+id/profile"
+            android:iconTint="@color/navi_icon"
+            android:icon="@drawable/profile_icon"
+            android:title="PROFILE" />
+
+
+    </group>
+<group android:enabled="true">
+<item android:title="SHARE"
+    android:icon="@drawable/share_icon"
+    android:id="@+id/share"/>
+    <item android:title="LOGOUT"
+        android:icon="@drawable/logout"
+        android:visible="true"
+        android:id="@+id/logout"/>
+</group>
+</menu>

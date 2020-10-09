@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PlotDetailActivity"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="30dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginRight="40dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Plot Detail"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:textStyle="normal"
+        android:textColor="@color/black"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_weight="0">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/black"
+            android:layout_weight="0.5"
+            android:text="Plot Number  :"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12"
+            android:layout_marginRight="20dp"
+            android:textStyle="bold"
+            android:layout_weight="0.5"
+            android:textColor="@color/black"
+            android:inputType="number"
+            android:layout_marginTop="5dp"
+            android:id="@+id/plot_number"
+            android:textSize="20dp"
+            android:padding="10dp"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="15sp"
+        android:text="Plot Size"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=" Enter size in Sqr.ft"
+        android:id="@+id/plot_size"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:inputType="numberDecimal"
+        android:layout_marginRight="5dp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:background="@drawable/input_field"
+        android:gravity="center_horizontal" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="15sp"
+        android:text="Select Broker"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/input_field">
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_height="35dp"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="15sp"
+        android:text="Plot Owner"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Plot Owner"
+        android:id="@+id/plot_owner"
+        android:textSize="20dp"
+        android:inputType="text"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:background="@drawable/input_field"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="15sp"
+        android:text="Plot Description"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:hint="Description"
+        android:id="@+id/plot_description"
+        android:textSize="20dp"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:background="@drawable/input_field2"
+        />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:id="@+id/constraint"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn"
+        android:orientation="horizontal">
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:indeterminateTint="@color/white"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/register"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:id="@+id/register"
+            android:padding="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textStyle="normal"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="20dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:id="@+id/relative">
+<com.google.android.material.circularreveal.cardview.CircularRevealCardView
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<ImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:id="@+id/image"
+
+    android:src="@drawable/plot_loaction_icon"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        android:id="@+id/plot_number"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="PLot Number "/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="8dp"
+            android:id="@+id/plot_size"
+            android:layout_marginLeft="10dp"
+            android:text="PLot Size "
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="8dp"
+            android:id="@+id/plot_owner"
+            android:layout_marginLeft="10dp"
+            android:text="PLot Owner "
+            />
+
+    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Booked"
+            android:layout_margin="5dp"
+            android:textSize="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:textColor="@color/red"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+</com.google.android.material.circularreveal.cardview.CircularRevealCardView>
+
+
+</RelativeLayout>

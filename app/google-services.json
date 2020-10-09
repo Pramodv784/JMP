@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "539592509065",
+    "firebase_url": "https://jmp-project-2a864.firebaseio.com",
+    "project_id": "jmp-project-2a864",
+    "storage_bucket": "jmp-project-2a864.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539592509065:android:6b37eabeb05fb14bd22858",
+        "android_client_info": {
+          "package_name": "com.android.skyheight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539592509065-ej367eqtod48idp1pi3d5horu2mois43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1XUa7j1KC0srozkXM0BlSsjw-SOlauEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539592509065-ej367eqtod48idp1pi3d5horu2mois43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

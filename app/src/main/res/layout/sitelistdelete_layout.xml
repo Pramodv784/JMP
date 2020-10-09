@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginEnd="8dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        android:elevation="5dp"
+        android:background="@drawable/layout"
+        android:layout_margin="2dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linear"
+    android:showDividers="end"
+    android:padding="10dp"
+    android:divider="@drawable/divider"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/plotimage2"
+        android:scaleType="centerCrop"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10 lac"
+            android:textColor="@color/black"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_gravity="center|start"
+            android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 acres"
+            android:textSize="15dp"
+            android:textColor="@color/text_color"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_gravity="center|start"
+           android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/site_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:text="78 indore"
+            android:textSize="15dp"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_gravity="center|start"
+            android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/owner1"
+            android:layout_width="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_height="wrap_content"
+            android:text="Owner Ramesh"
+            android:textSize="15dp"
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_gravity="center|start"
+           android:layout_marginLeft="30dp"/>
+    </LinearLayout>
+</LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
