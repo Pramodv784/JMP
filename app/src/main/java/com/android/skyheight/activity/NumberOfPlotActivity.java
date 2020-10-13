@@ -68,7 +68,6 @@ ProgressBar progressBar;
             }
         });
     }
-
     public void adminhome(View view) {
         startActivity(new Intent(NumberOfPlotActivity.this,AdminViewActivity.class));
     }
