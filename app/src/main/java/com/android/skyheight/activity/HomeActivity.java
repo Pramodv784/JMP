@@ -192,12 +192,10 @@ public class HomeActivity  extends AppCompatActivity
                 }
                 else if (response.code()==401){
                     refresh.setRefreshing(false);
-
                 }
                 else {
                     shimmer.stopShimmerAnimation();
                     shimmer.setVisibility(View.GONE);
-
                     Toast.makeText(getApplicationContext(),"List Failed ",Toast.LENGTH_SHORT).show();
                 }
             }
