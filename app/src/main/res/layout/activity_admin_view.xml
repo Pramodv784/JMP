@@ -76,39 +76,6 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_weight="2"
-                android:onClick="removesite"
-                app:cardCornerRadius="10dp"
-                android:layout_margin="5dp"
-                android:layout_height="110dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:src="@drawable/removeplot"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Remove Site"
-                        android:textSize="12dp"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:textColor="@color/black"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="6"
-            android:orientation="horizontal">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="100dp"
-                android:layout_weight="2"
                 app:cardCornerRadius="10dp"
                 android:onClick="addpartner"
                 android:layout_margin="5dp"
@@ -126,6 +93,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Add Owner"
+                        android:textSize="12dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="6"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_weight="2"
+                android:onClick="removesite"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="5dp"
+                android:layout_height="110dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:src="@drawable/removeplot"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Remove Site"
                         android:textSize="12dp"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
@@ -161,8 +162,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_weight="2"
+                android:onClick="deactive"
                 app:cardCornerRadius="10dp"
-                android:onClick="alluserlist"
                 android:layout_margin="5dp"
                 android:layout_height="110dp">
                 <LinearLayout
@@ -173,17 +174,20 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:src="@drawable/customerlist"/>
+                        android:src="@drawable/unactive_user"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Customer List"
+                        android:text="DeActivate User"
                         android:textSize="12dp"
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:textColor="@color/black"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -245,8 +249,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="100dp"
                 android:layout_weight="2"
-                android:onClick="deactive"
                 app:cardCornerRadius="10dp"
+                android:onClick="alluserlist"
                 android:layout_margin="5dp"
                 android:layout_height="110dp">
                 <LinearLayout
@@ -257,14 +261,12 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:src="@drawable/unactive_user"/>
+                        android:src="@drawable/customerlist"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="DeActivate User"
+                        android:text="Customer List"
                         android:textSize="12dp"
-                        android:lines="1"
-                        android:ellipsize="end"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:textColor="@color/black"/>
@@ -336,9 +338,6 @@
             <LinearLayout
                 android:layout_width="100dp"
                 android:layout_weight="2"
-                android:onClick="deactive"
-
-
                 android:layout_margin="5dp"
                 android:layout_height="110dp">
                 <LinearLayout

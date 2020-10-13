@@ -51,7 +51,7 @@
                 app:backgroundTint="@color/colorPrimary"
                 android:backgroundTint="@color/colorPrimary"
                 app:borderWidth="0dp"
-                android:layout_marginBottom="-42dp"
+                android:layout_marginBottom="-32dp"
                 app:pressedTranslationZ="1dp"
                 app:fab_colorNormal="#ffffff"
                 app:fabCustomSize="40dp"
@@ -208,7 +208,7 @@
 <androidx.appcompat.widget.AppCompatButton
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Download File "
+    android:text="Download PDF File "
     android:layout_margin="20dp"
     android:id="@+id/btnfile"
     android:visibility="gone"

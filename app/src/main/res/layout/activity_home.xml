@@ -46,7 +46,7 @@
                 app:duration="800">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
                     <include layout="@layout/item"/>
                     <include layout="@layout/item"/>
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/refresh"
                 android:layout_below="@+id/toolbar"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -84,6 +84,7 @@
         app:itemIconTint="@color/navi_icon"
         app:itemTextColor="@color/navi_icon"
         app:menu="@menu/navigation_bar"
+
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -83,6 +83,7 @@ public class BookListActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
                         bookingsumaary=response.body();
+
                         bookListAdaptor =new BookListAdaptor(BookListActivity.this,response.body(),bookingsumaary);
                         recyclerView.setAdapter(bookListAdaptor);
                         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);

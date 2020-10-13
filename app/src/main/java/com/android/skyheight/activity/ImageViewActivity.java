@@ -3,12 +3,15 @@ package com.android.skyheight.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,23 +32,19 @@ String i;
 ImageViewZoom photoView;
     private ScaleGestureDetector scaleGestureDetector;
     private float mScaleFactor = 1.0f;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_view);
         photoView=(ImageViewZoom) findViewById(R.id.photoview);
+        toolbar=findViewById(R.id.toolbar);
         photoView.getBase64();
         Intent intent = getIntent();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-
         i=intent.getStringExtra("i");
         Picasso.get().load(i).into(photoView);
         //photoView.setImageResource(R.drawable.plotimage2);
         ImageViewZoomConfig imageViewZoomConfig =new ImageViewZoomConfig.Builder().saveProperty(true).saveMethod(ImageViewZoomConfig.ImageViewZoomConfigSaveMethod.onlyOnDialog).build();
-
-
         photoView.setConfig(imageViewZoomConfig);
         photoView.saveImage(ImageViewActivity.this, "ImageViewZoom", "test", Bitmap.CompressFormat.JPEG, 1, imageViewZoomConfig, new SaveFileListener() {
             @Override
@@ -59,7 +58,16 @@ ImageViewZoom photoView;
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.back_icon));
 
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
     }
 
     @Override

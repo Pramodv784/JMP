@@ -20,6 +20,7 @@ import com.android.skyheight.api.ApiClient;
 import com.android.skyheight.model.SiteSummaryModel;
 import com.android.skyheight.utils.ConstantClass;
 import com.android.skyheight.utils.Prefrence;
+import com.android.skyheight.utils.SiteUtils;
 
 import java.util.ArrayList;
 
@@ -48,22 +49,20 @@ SwipeRefreshLayout swipeRefreshLayout;
         swipeRefreshLayout=findViewById(R.id.refresh);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.
                 VERTICAL,false));
-        Intent intent = getIntent();
-        site=intent.getStringExtra("site");
-        sitesummary(site);
+      sitesummary();
         swipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-               sitesummary(site);
+               sitesummary();
 
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-    private void sitesummary(String site) {
+    private void sitesummary() {
         Call<ArrayList<SiteSummaryModel>> userResponse = ApiClient.
-                getUserService().sitesummary("Bearer "+youprefrence.getData(ConstantClass.TOKEN),site);
+                getUserService().sitesummary("Bearer "+youprefrence.getData(ConstantClass.TOKEN),youprefrence.getData(SiteUtils.ID));
 
         userResponse.enqueue(new Callback<ArrayList<SiteSummaryModel>>() {
             @Override

@@ -31,6 +31,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import dagger.multibindings.ElementsIntoSet;
+
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class SiteListAdaptor extends RecyclerView.Adapter<SiteListAdaptor.ViewHolder> {
@@ -76,8 +78,18 @@ public class SiteListAdaptor extends RecyclerView.Adapter<SiteListAdaptor.ViewHo
 
         }
         holder.site_size.setText(siteModel.getArea()+" sq/ft");
-       holder.site_owner.setText(siteModel.getOwner().getUsername());
-        holder.site_name.setText( siteModel.getName());
+        if (siteModel.getOwner()==null)
+        {
+
+        }
+        else {
+            String upperownername = siteModel.getOwner().getUsername().substring(0, 1).toUpperCase() + siteModel.getOwner().getUsername().substring(1).toLowerCase();
+            holder.site_owner.setText(upperownername);
+        }
+
+
+        String upperString = siteModel.getName().substring(0, 1).toUpperCase() + siteModel.getName().substring(1).toLowerCase();
+        holder.site_name.setText(upperString);
       if(siteModel.getSite_location()!=null){
           holder.site_address.setText(siteModel.site_location.getAddress());
       }

@@ -38,12 +38,15 @@ import androidx.core.content.ContextCompat;
 import com.android.skyheight.R;
 import com.android.skyheight.api.ApiClient;
 import com.android.skyheight.model.AddressModel;
+import com.android.skyheight.model.ErrorModel;
 import com.android.skyheight.model.SiteModel;
 import com.android.skyheight.utils.ConstantClass;
 import com.android.skyheight.utils.Prefrence;
 import com.android.skyheight.utils.SiteUtils;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.core.Platform;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -85,6 +88,7 @@ public class AddSiteActivity extends AppCompatActivity implements
     ProgressBar progressBar;
     Bitmap bitmap;
     File image2;
+    String userid;
     int owner;
     private static final int BUFFER_SIZE = 1024 * 2;
     String site_street, site_address, site_city;
@@ -107,13 +111,15 @@ public class AddSiteActivity extends AppCompatActivity implements
         constraint = findViewById(R.id.constraint);
         file = findViewById(R.id.file);
         progressBar = findViewById(R.id.progressbar);
-        yourprefrence = Prefrence.getInstance(AddSiteActivity.this);
+        yourprefrence = Prefrence.getInstance(this);
         pick_image = findViewById(R.id.pick_image);
         image = findViewById(R.id.image1);
         initview();
         requestPermission();
         checkPermission();
-        owner= Integer.parseInt(yourprefrence.getData(ID));
+         userid= yourprefrence.getData(SiteUtils.USERID);
+        Log.i("data","id>>>"+userid);
+
     }
 
     private void initview() {
@@ -354,7 +360,8 @@ public class AddSiteActivity extends AppCompatActivity implements
                             RequestBody.create(MediaType.parse("multipart/form-data"), description);
                     RequestBody owner =
                             RequestBody.create(MediaType.parse("multipart/form-data")
-                                    ,yourprefrence.getData(ID));
+                                    , userid);
+                    Log.i( "data","id>>>>"+yourprefrence.getData(ID)+yourprefrence.getData(ConstantClass.USERNAME));
                     File file = new File(mediaPath);
                    File anfile= new File(selectedpdf);
                     RequestBody requestBody = RequestBody.create(MediaType.parse("/"),anfile);
@@ -363,7 +370,26 @@ public class AddSiteActivity extends AppCompatActivity implements
                     MultipartBody.Part partImage = MultipartBody.Part.createFormData("image", file.getName(),reqBody);
                     site(name, address_id1,area1,price1,description1,owner, partImage,finalfile);
                     //Log.e( "onResponse: ","id"+site_location );
-                } else {
+                }
+                else if (response.code()==500)
+                {
+                    Gson gson = new GsonBuilder().create();
+
+                    ErrorModel errorModel;
+                    try {
+
+                        //Toast.makeText(getApplicationContext(),"Error is "+response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                        errorModel = gson.fromJson(response.errorBody().string(), ErrorModel.class);
+                        for (int i = 0; i < errorModel.getNonFieldErrors().size(); i++) {
+
+                            Toast.makeText(getApplicationContext(), "" + errorModel.getNonFieldErrors().get(i).toString(), Toast.LENGTH_LONG).show();
+                        }
+                        Log.i("data","error>>"+errorModel);
+
+                    } catch (IOException e) { // handle failure at error parse }
+                    }
+                }
+                else {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), "Faild to save Address", Toast.LENGTH_SHORT).show();
                 }
@@ -393,7 +419,7 @@ public class AddSiteActivity extends AppCompatActivity implements
                     Toast.makeText(getApplicationContext(), "Site Added Sucessfully", Toast.LENGTH_SHORT).show();
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Site Added Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Site Added Failed"+response.errorBody(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

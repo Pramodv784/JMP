@@ -108,10 +108,13 @@ public class BookingActivity extends AppCompatActivity implements
         plot_owner=findViewById(R.id.plot_owner);
         total_amount=findViewById(R.id.total_amount);
         remain=findViewById(R.id.remain);
+
+
+
        paid_amount.addTextChangedListener(new TextWatcher() {
            @Override
            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+               remain.setText("");
            }
 
            @Override
@@ -209,10 +212,16 @@ public class BookingActivity extends AppCompatActivity implements
                  plotlist = response.body();
                  int i;
                  for (i = 0; i < plotlist.size(); i++)
+                    if (plotlist.isEmpty())
+                    {
+                       Toast.makeText(getApplicationContext(),"Plotlist",Toast.LENGTH_SHORT).show();
+                    }
+                 else {
+                        spinnerlist.add(plotlist.get(i).getPlot_number());
+                        //plot_size1.add(plotlist.get(i).getTotal_plot_amount());
+                    }
 
 
-                     spinnerlist.add(plotlist.get(i).getPlot_number());
-                 plot_size1.add(plotlist.get(i-1).getTotal_plot_amount());
 
              }
                  multi_two.setSpinnerList(spinnerlist);
@@ -222,6 +231,7 @@ public class BookingActivity extends AppCompatActivity implements
                          int i;
                          for (i = 0; i < choices.size(); i++)
                              choice.add(plotlist.get(i).getId());
+                         plot_size1.add(plotlist.get(i).getTotal_plot_amount());
                          no_plotadd();
                          // plotbook();
                          // Toast.makeText(BookingActivity.this, choices.get(i), Toast.LENGTH_SHORT).show();
@@ -238,6 +248,15 @@ public class BookingActivity extends AppCompatActivity implements
              }
              total_amount.setText("Total Amount  ₹ "+String.valueOf(plot_total_amount));
              Log.e("dayta", "total>>>"+plot_total_amount);
+
+            /* for (int i=0;i<demolist.size();i++)
+             {
+                 plot_total_amount+=demolist.get(i);
+             }
+             total_amount.setText("Total Amount  ₹ "+String.valueOf(plot_total_amount));
+
+             Log.e("dayta", "total>>>"+plot_total_amount);
+*/
 
 
          }
@@ -273,20 +292,22 @@ public class BookingActivity extends AppCompatActivity implements
     public void plotdata()
 {
 
-
      amount= Integer.parseInt(paid_amount.getText().toString());
     Log.i("data","lis>>>"+plotOwner);
     if (amount==plot_total_amount)
     {
-        remain.setText("0");
+        remain.setText("Remaining Amount  ₹  0");
     }
     else if (amount>plot_total_amount){
-        remain.setText("Extra Amount Paid  ₹"+(-(plot_total_amount-amount)));
+        remain.setText("Extra Amount Paid  ₹ "+(-(plot_total_amount-amount)));
+        remaining_amount=-plot_total_amount-amount;
 
     }
     else {
-        remain.setText("Remaining Amount  ₹"+(amount-plot_total_amount));
-        remaining_amount= Integer.parseInt("Remaining Amount  ₹"+remain.getText().toString());
+        remain.setText("Remaining Amount  ₹ "+(plot_total_amount-amount));
+        //remaining_amount= Integer.parseInt(remain.getText().toString());
+        remaining_amount=plot_total_amount-amount;
+
     }
 
 }
@@ -300,7 +321,7 @@ public void plotsetId(View view)
    }
    else {
        progressBar.setVisibility(View.VISIBLE);
-       BookingModel bookingModel= new BookingModel(plotsno,plotOwner,amount,remaining_amount);
+       BookingModel bookingModel= new BookingModel(plotsno,plotOwner,amount,remaining_amount,plot_total_amount);
        Log.i("data","dataaaa>>>"+bookingModel);
        plotstatus(bookingModel);
    }

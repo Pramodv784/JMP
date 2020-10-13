@@ -80,13 +80,13 @@ public class PlotListAdaptor extends RecyclerView.Adapter<PlotListAdaptor.ViewHo
              });
 
              if(row_index==position){
-                 holder.linear.setBackgroundColor(Color.parseColor("#A0B80E"));
+                 holder.linear.setBackgroundColor(Color.parseColor("#3DDC84"));
                  holder.plot_number.setTextColor(Color.parseColor("#FFFFFF"));
              }
              else
              {
                  holder.linear.setBackgroundColor(Color.parseColor("#ffffff"));
-                 holder.plot_number.setTextColor(Color.parseColor("#454545"));
+                 holder.plot_number.setTextColor(Color.parseColor("#3DDC84"));
              }
          }
          else {

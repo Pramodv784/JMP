@@ -34,11 +34,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                <ImageView
+                <com.jackandphantom.circularimageview.CircleImage
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_account_circle_24"/>
+                    android:src="@mipmap/app_icon"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -65,14 +65,15 @@
                     android:layout_marginStart="20dp"
                     android:hint="Enter Password"
                     android:drawablePadding="10dp"
-                    app:hidePasswordIcon="@drawable/eye_icon"
+                    android:fontFamily="sans-serif-light"
                     app:iconPosition="right"
                     app:showPasswordIcon="@drawable/eye_close_icon"
+                    app:hidePasswordIcon="@drawable/eye_icon"
                     android:padding="15dp"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
                     android:textStyle="normal"
-                    android:fontFamily="sans-serif-light"
+
                     android:textColor="@color/black"
                     android:inputType="textPassword"
                     />

@@ -9,6 +9,7 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.android.skyheight.model.ErrorModel;
 import com.android.skyheight.model.LoginModel;
 import com.android.skyheight.utils.ConstantClass;
 import com.android.skyheight.utils.Prefrence;
+import com.android.skyheight.utils.SiteUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -60,6 +62,7 @@ public class UserLoginActivity extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     TextView resend;
     Button send;
+
     FirebaseAuth mAuth;
     private String mVerificationId;
     View view;
@@ -81,7 +84,7 @@ public class UserLoginActivity extends AppCompatActivity {
         // password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         //password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
        // sendVerificationCode();
-
+           getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -147,6 +150,8 @@ public class UserLoginActivity extends AppCompatActivity {
                     yourprefrence.saveData(ConstantClass.USERNAME, response.body().getUsername());
                     yourprefrence.saveData(ConstantClass.ADDRESS, response.body().getAddress());
                     yourprefrence.saveData(ConstantClass.ID, response.body().getId());
+                    yourprefrence.saveData(SiteUtils.USERID,response.body().getId());
+                    Log.i("data","login id>>>"+yourprefrence.getData(ConstantClass.ID));
                     ButtonFinished();
                    /* if (yourprefrence.getData(ConstantClass.TYPE).equals("Super_Admin")
                             && yourprefrence.getData(ConstantClass.TYPE).equals("Owner"))

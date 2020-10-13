@@ -87,8 +87,14 @@ public class HomeActivity  extends AppCompatActivity
         circularImageView = (CircleImage) headerview.findViewById(R.id.user_image);
         userName = (TextView) headerview.findViewById(R.id.userName);
         typeuser=(TextView) headerview.findViewById(R.id.typeuser);
-
-
+        refresh.setColorSchemeColors(R.color.colorPrimary);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                siteList();
+            }
+        });
+        Log.i("data","userid"+yourprefrence.getData(ConstantClass.ID));
         IntentFilter intentFilter= new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
         NetworkChangeReceiver networkChangeReceiver= new NetworkChangeReceiver();
         registerReceiver(networkChangeReceiver,intentFilter);
@@ -103,15 +109,9 @@ public class HomeActivity  extends AppCompatActivity
             userName.setText("Guest User");
             hidedrawermenu();
         }
-        refresh.setColorSchemeColors(R.color.colorPrimary);
-        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                siteList();
-            }
-        });
 
-       userName.setText("Hi  "+yourprefrence.getData(ConstantClass.USERNAME));
+       userName.setText("  Hi  "+yourprefrence.getData(ConstantClass.USERNAME));
+       userName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.smiley_icon,0,0,0);
        if (yourprefrence.getData(ConstantClass.TYPE).equals("Super_Admin"))
        {
            typeuser.setText("Super Admin");
@@ -128,6 +128,8 @@ public class HomeActivity  extends AppCompatActivity
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         siteList();
+        toolbar.inflateMenu(R.menu.homemenu);
+
     }
     @Override
     public void onResume() {
@@ -141,7 +143,24 @@ public class HomeActivity  extends AppCompatActivity
         super.onPause();
     }
 
-    private void hidedrawermenu(){
+           @Override
+           public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.homemenu,menu);
+
+
+        return  true;
+           }
+
+           @Override
+           public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+               if (item.getItemId()==R.id.refresh)
+               {
+                   siteList();
+               }
+        return super.onOptionsItemSelected(item);
+           }
+
+           private void hidedrawermenu(){
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.admin_control).setVisible(false);
         menu.findItem(R.id.logout).setVisible(false);
@@ -236,6 +255,7 @@ public class HomeActivity  extends AppCompatActivity
     }
     private void logout() {
         yourprefrence.clear();
+        Log.i("logout","logdata>>"+yourprefrence.getData(ConstantClass.ID));
         startActivity(new Intent(HomeActivity.this, HomeActivity.class));
         // Toast.makeText(getApplicationContext(),"Email"+yourprefrence.getData(ConstantClass.EMAIL),Toast.LENGTH_SHORT).show();
     }
@@ -266,6 +286,7 @@ public class HomeActivity  extends AppCompatActivity
                if(isConnected){
                   // Snackbar.make(drawer,"Connected", Snackbar.LENGTH_LONG).show();
                    shimmer.startShimmerAnimation();
+                   shimmer.setVisibility(View.VISIBLE);
                    siteList();
                }
                else{

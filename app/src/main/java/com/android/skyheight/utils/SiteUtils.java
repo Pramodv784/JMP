@@ -9,6 +9,7 @@ public class SiteUtils {
     public static String SITE_FILE= "file";
     public static String PRICE = "price";
     public static String ID= "id";
+    public static String USERID= "userid";
     public static String FILEPATH= "filepath";
 
 }

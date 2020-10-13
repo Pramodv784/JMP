@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -242,6 +243,8 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
         if (siteListModel.getFile() != null) {
             String path = yourprefrence.getData(SiteUtils.FILEPATH);
             String file ="file";
+            String fileextension= MimeTypeMap.getFileExtensionFromUrl(path);
+            file +="."+fileextension;
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                     ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 // this will request for permission when user has not granted permission for the app
@@ -254,12 +257,12 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
                 request.setVisibleInDownloadsUi(true);
                 request.setTitle("JMP");
                 request.setDescription("Downloading"+file);
-                request.setMimeType("pdf/jpg");
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "file");
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "file.pdf");
                // Log.e("bhagwan", "download" + uri.getPath());
                 downloadManager.enqueue(request);
                 Toast.makeText(getApplicationContext(), "Starting Downloading... ", Toast.LENGTH_SHORT).show();
+
 
             }
         } else {
@@ -309,10 +312,10 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
         plot_no = findViewById(R.id.plotnumber1);
         plot_size = findViewById(R.id.plot_size);
         plot_no.setText(String.valueOf(plotList.get(position).getPlot_number()));
-        plot_no.setTextColor(Color.parseColor("#A0B80E"));
+        plot_no.setTextColor(Color.parseColor("#3DDC84"));
         if (plotList.get(position).getSize() > 0) {
             plot_size.setText(String.valueOf(plotList.get(position).getSize()) + " Sq/ft");
-            plot_size.setTextColor(Color.parseColor("#A0B80E"));
+            plot_size.setTextColor(Color.parseColor("#3DDC84"));
         } else {
             plot_size.setText("0");
         }

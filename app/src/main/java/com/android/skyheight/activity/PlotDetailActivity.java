@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,13 +51,14 @@ import retrofit2.Response;
 
 public class PlotDetailActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
-    EditText plot_size,plot_description,plot_owner;
+    EditText  plot_size1,plot_size2,plot_description,plot_owner;
     RadioButton btn_book,btn_unbook;
-    TextView plot_number;
+    TextView plot_number,plot_size;
     Prefrence yourprefrence;
     RadioButton booking,unbook;
     String plot_id;
     Boolean status;
+    int plotSize;
     String brokerselected;
     String broker_id;
     Spinner spinner;
@@ -84,6 +87,8 @@ public class PlotDetailActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_plot_detail);
         plot_number=findViewById(R.id.plot_number);
         plot_size=findViewById(R.id.plot_size);
+        plot_size1=findViewById(R.id.plot_size1);
+        plot_size2=findViewById(R.id.plot_size2);
         plot_description=findViewById(R.id.plot_description);
         //btn_book = findViewById(R.id.btn_book);
         yourprefrence=Prefrence.getInstance(this);
@@ -103,13 +108,32 @@ public class PlotDetailActivity extends AppCompatActivity implements
         Bundle args = intent.getBundleExtra("BUNDLE");
         PlotListModel plotListModel = (PlotListModel) args.getSerializable("ARRAYLIST");
         plot_number.setText(plotListModel.getPlot_number());
+  plot_size2.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+      plot_size.setText("");
+      }
 
-        if (plotListModel.getSize()>0){
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+          if (s.toString().length()>0) {
+              sum();
+
+
+          }
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+
+      }
+  });
+       /* if (plotListModel.getSize()>0){
             plot_size.setText(String.valueOf(plotListModel.getSize()));
         }
         else {
             plot_size.setText("");
-        }
+        }*/
         plot_description.setText(plotListModel.getDescription());
 
         plot_id=plotListModel.getId();
@@ -158,6 +182,14 @@ public class PlotDetailActivity extends AppCompatActivity implements
 
             }
         });
+    }
+
+    private void sum() {
+        int len,breadth;
+        len= Integer.parseInt(plot_size1.getText().toString());
+        breadth= Integer.parseInt(plot_size2.getText().toString());
+        plotSize=len*breadth;
+        plot_size.setText(String.valueOf(plotSize));
     }
 
     private void brokerlist(String type) {
@@ -218,13 +250,12 @@ public class PlotDetailActivity extends AppCompatActivity implements
     public void updateplot() {
         progressBar.setVisibility(View.VISIBLE);
         String plot_no = plot_number.getText().toString().trim();
-        int plotsize= Integer.parseInt(plot_size.getText().toString().trim());
         String description=plot_description.getText().toString().trim();
         int site= Integer.parseInt(yourprefrence.getData(SiteUtils.ID));
         String p_id=plot_id;
         String owner=plot_owner.getText().toString().trim();
         PlotUpdateModel plotUpdateModel= new PlotUpdateModel(plot_no,
-                description,plotsize,p_id,site,null,broker_id,owner);
+                description,plotSize,p_id,site,null,broker_id,owner);
         newupdate(plotUpdateModel,p_id);
 
     }

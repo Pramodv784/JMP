@@ -66,6 +66,8 @@ BookingModel bookingModel;
         total.setText(" ₹  "+String.valueOf(bookingModel.getPaid_amount()));
         remaining.setText(" ₹  "+String.valueOf(bookingModel.getRemaining_amount()));
 
+
+
         for (int i=0;i<bookingModel.getPlot().size();i++)
         {
             plotnumbers.add(bookingModel.getPlot().get(i).getPlot_number());
