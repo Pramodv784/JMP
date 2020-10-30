@@ -3,11 +3,8 @@ package com.android.skyheight.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.browse.MediaBrowser;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -40,10 +36,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.jackandphantom.circularimageview.CircleImage;
-import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
-import java.nio.channels.NetworkChannel;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -119,6 +112,16 @@ public class HomeActivity  extends AppCompatActivity
        else {
            typeuser.setText(yourprefrence.getData(ConstantClass.TYPE));
        }
+       if (yourprefrence.getData(ConstantClass.TYPE).equals("Super_Admin") || yourprefrence.getData(ConstantClass.TYPE).equals("Owner"))
+       {
+
+       }
+       else {
+           Menu menu = navigationView.getMenu();
+           menu.findItem(R.id.userlist).setVisible(false);
+           menu.findItem(R.id.book_summary).setVisible(false);
+           menu.findItem(R.id.admin_control).setVisible(false);
+       }
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) HomeActivity.this);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -165,6 +168,8 @@ public class HomeActivity  extends AppCompatActivity
         menu.findItem(R.id.admin_control).setVisible(false);
         menu.findItem(R.id.logout).setVisible(false);
         menu.findItem(R.id.profile).setVisible(false);
+        menu.findItem(R.id.userlist).setVisible(false);
+        menu.findItem(R.id.book_summary).setVisible(false);
     }
     private void siteList() {
 
@@ -187,7 +192,7 @@ public class HomeActivity  extends AppCompatActivity
                         shimmer.setVisibility(View.GONE);
                         shimmer.stopShimmerAnimation();
 
-                      recyclerView.setBackgroundResource(R.drawable.emptyitem);
+                      recyclerView.setBackgroundResource(R.drawable.we);
                     }
                 }
                 else if (response.code()==401){
@@ -229,6 +234,12 @@ public class HomeActivity  extends AppCompatActivity
                 break;
             case R.id.userregister:
                 startActivity(new Intent(HomeActivity.this,SignupActivity.class));
+                break;
+            case R.id.userlist:
+                startActivity(new Intent(HomeActivity.this,CustomerListActivity.class));
+                break;
+            case R.id.book_summary:
+                startActivity(new Intent(HomeActivity.this,BookListActivity.class));
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
         drawer.closeDrawer(GravityCompat.START);

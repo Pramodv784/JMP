@@ -13,29 +13,47 @@
             android:layout_height="match_parent"
             android:layout_marginTop="30dp"
             android:background="@color/white"
-            android:padding="10dp"
             android:layout_margin="10dp"
             android:id="@+id/llScroll"
             android:orientation="vertical">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/plotlist"/>
-</RelativeLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pramod Verma"
+                android:id="@+id/username"
+                android:layout_marginTop="10dp"
+                android:textSize="25dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jai Vasanti nagar Indore"
+                android:layout_marginTop="10dp"
+                android:id="@+id/user_address"
+                android:textSize="15dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8359968242"
+                android:id="@+id/user_mobile"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/black"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
+                android:layout_marginLeft="20dp"
                 android:padding="10dp"
                 android:orientation="horizontal">
 
@@ -44,7 +62,66 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:textSize="20dp"
-                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"
+                    android:text="Paid Amount "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:textSize="22dp"
+                    android:id="@+id/paid_amount"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:text="5000"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:text="Total Amount "/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:textSize="22dp"
+                    android:id="@+id/total_amount"
+                    android:layout_marginRight="5dp"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:text="14000"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_marginRight="20dp"
+               android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:textSize="20dp"
                     android:textColor="@color/black"
                     android:text="Remaining Amount "/>
                 <TextView
@@ -60,37 +137,25 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:layout_marginRight="20dp"
+                android:text="Site name"
+                android:lines="1"
+                android:ellipsize="end"
+                android:id="@+id/site_name"
+                android:layout_marginTop="10dp"
+                android:textSize="25dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:padding="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:text="Paid Amount "/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:textSize="22dp"
-                    android:id="@+id/total_amount"
-                    android:gravity="end"
-                    android:textColor="@color/black"
-                    android:text="5000"/>
-
-            </LinearLayout>
-
+                android:textColor="@color/black"/>
+            <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/plotlist"/>
+</RelativeLayout>
         </LinearLayout>
 
     </ScrollView>

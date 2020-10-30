@@ -27,8 +27,10 @@ import com.android.skyheight.R;
 import com.android.skyheight.adaptor.BookListAdaptor;
 import com.android.skyheight.adaptor.PlotSummaryAdaptor;
 import com.android.skyheight.api.ApiClient;
-import com.android.skyheight.model.BookingModel;
+import com.android.skyheight.model.BookingListModel;
+import com.android.skyheight.model.PlotDataModel;
 import com.android.skyheight.model.PlotSummaryModel;
+import com.android.skyheight.model.UserDetail;
 import com.android.skyheight.utils.ConstantClass;
 import com.android.skyheight.utils.Prefrence;
 
@@ -47,8 +49,10 @@ public class BookListActivity extends AppCompatActivity {
     Prefrence youprefrence;
     Toolbar toolbar;
     RelativeLayout relative;
-    ArrayList<BookingModel> bookingsumaary;
+    ArrayList<BookingListModel> bookingsumaary;
     BookListAdaptor bookListAdaptor;
+    String bname;
+    String buyer_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,17 +69,16 @@ public class BookListActivity extends AppCompatActivity {
                 booking();
             }
         });
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this,RecyclerView.VERTICAL,false));
         booking();
     }
     public void booking()
     {
-        Call<ArrayList<BookingModel>> userResponse = ApiClient.getUserService()
+        Call<ArrayList<BookingListModel>> userResponse = ApiClient.getUserService()
                 .bookinglist("Bearer "+youprefrence.getData(ConstantClass.TOKEN));
-        userResponse.enqueue(new Callback<ArrayList<BookingModel>>() {
+        userResponse.enqueue(new Callback<ArrayList<BookingListModel>>() {
             @Override
-            public void onResponse(Call<ArrayList<BookingModel>> call, Response<ArrayList<BookingModel>> response) {
+            public void onResponse(Call<ArrayList<BookingListModel>> call, Response<ArrayList<BookingListModel>> response) {
                 if (response.code()==200)
                 {
                     if (!response.body().isEmpty())
@@ -83,6 +86,10 @@ public class BookListActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
                         bookingsumaary=response.body();
+                        for (int i=0;i<bookingsumaary.size();i++)
+                        {
+                            bname= String.valueOf(bookingsumaary.get(i).getBuyer());
+                        }
 
                         bookListAdaptor =new BookListAdaptor(BookListActivity.this,response.body(),bookingsumaary);
                         recyclerView.setAdapter(bookListAdaptor);
@@ -91,15 +98,17 @@ public class BookListActivity extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
-            public void onFailure(Call<ArrayList<BookingModel>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<BookingListModel>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Log.i("data","error>>>"+t);
                 Toast.makeText(getApplicationContext(),"List failed"+t,Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+
+
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -110,7 +119,7 @@ public class BookListActivity extends AppCompatActivity {
             final int position = viewHolder.getAdapterPosition();
             bookListAdaptor.notifyItemRemoved(position);
             bookListAdaptor.notifyDataSetChanged();
-            String id =bookingsumaary.get(position).getId();
+            String id = String.valueOf(bookingsumaary.get(position).getId());
            /* sitelist.remove(position);
             deleteListAdaptor.notifyDataSetChanged();*/
             showCustomDialog(id,position);
@@ -156,11 +165,11 @@ public class BookListActivity extends AppCompatActivity {
 
     private void deletesite(String id) {
 
-        Call<BookingModel> userResponse =ApiClient.getUserService()
+        Call<BookingListModel> userResponse =ApiClient.getUserService()
                 .delete_book_summary("Bearer "+youprefrence.getData(ConstantClass.TOKEN),id);
-        userResponse.enqueue(new Callback<BookingModel>() {
+        userResponse.enqueue(new Callback<BookingListModel>() {
             @Override
-            public void onResponse(Call<BookingModel> call, Response<BookingModel> response) {
+            public void onResponse(Call<BookingListModel> call, Response<BookingListModel> response) {
                 if (response.code()==204)
                 {
                     Toast.makeText(getApplicationContext()," delete Sucessfully",Toast.LENGTH_SHORT).show();
@@ -171,7 +180,7 @@ public class BookListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<BookingModel> call, Throwable t) {
+            public void onFailure(Call<BookingListModel> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"Failed to delete",Toast.LENGTH_SHORT).show();
 
             }

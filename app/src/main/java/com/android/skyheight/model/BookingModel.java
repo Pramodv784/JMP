@@ -6,27 +6,20 @@ import java.util.List;
 
 public class BookingModel implements Serializable {
     private List<Integer> plot_ids;
-    private String id;
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
     private String buyer;
+    private String site;
     private int paid_amount;
     private int total_amount;
-
-    public int getTotal_amount() {
-        return total_amount;
-    }
-
-    public void setTotal_amount(int total_amount) {
-        this.total_amount = total_amount;
-    }
-
     private int remaining_amount;
     private List<plot> plot=null;
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
 
     public List<com.android.skyheight.model.plot> getPlot() {
         return plot;
@@ -36,14 +29,20 @@ public class BookingModel implements Serializable {
         this.plot = plot;
     }
 
-    public BookingModel(List<Integer> plot_ids, String buyer, int paid_amount, int remaining_amount,int total_amount) {
+    public int getTotal_amount() {
+        return total_amount;
+    }
+    public void setTotal_amount(int total_amount) {
+        this.total_amount = total_amount;
+    }
+    public BookingModel(List<Integer> plot_ids, String buyer, int paid_amount, int remaining_amount,int total_amount,String site) {
         this.plot_ids = plot_ids;
         this.buyer = buyer;
         this.paid_amount = paid_amount;
         this.remaining_amount = remaining_amount;
         this.total_amount=total_amount;
+        this.site=site;
     }
-
     public List<Integer> getPlot_ids() {
         return plot_ids;
     }

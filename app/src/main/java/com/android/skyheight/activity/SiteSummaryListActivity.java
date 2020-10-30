@@ -1,7 +1,6 @@
 package com.android.skyheight.activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -77,12 +76,12 @@ SwipeRefreshLayout swipeRefreshLayout;
                     }
                     else {
                         progressBar.setVisibility(View.GONE);
-                        relativeLayout.setBackgroundResource(R.drawable.emptyitem);
+                        relativeLayout.setBackgroundResource(R.drawable.we);
                     }
 
                     } else {
                         progressBar.setVisibility(View.GONE);
-                       // relativeLayout.setBackgroundResource(R.drawable.emptyitem);
+                       // relativeLayout.setBackgroundResource(R.drawable.we);
 
                         Toast.makeText(getApplicationContext(), " Site Summary Failed", Toast.LENGTH_LONG).show();
                     }

@@ -54,7 +54,7 @@ ProgressBar progressBar;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         sit=intent.getStringExtra("site_id");
-        allbroker.add("select broker");
+
     }
 
     private void brokerlist(String type) {
@@ -64,6 +64,10 @@ ProgressBar progressBar;
             @Override
             public void onResponse(Call<ArrayList<UserList>> call, Response<ArrayList<UserList>> response) {
                 if (response.code()==200){
+                    if (!response.body().isEmpty())
+                    {
+
+
                  brokerlist=response.body();
                 for(int i=0;i<brokerlist.size();i++){
 
@@ -78,6 +82,21 @@ ProgressBar progressBar;
                     spinner.setAdapter(aa);
 
                 }
+                    else {
+                        if (allbroker.isEmpty())
+                        {
+
+                            allbroker.add("No Brokers");
+                            ArrayAdapter<String> aa = new
+                                    ArrayAdapter<String>(getApplicationContext()
+                                    ,R.layout.spinner_dropdown_layout,allbroker);
+                            aa.setDropDownViewResource(R.layout.spinner_layout);
+                            spinner.setAdapter(aa);
+                        }
+
+                    }
+                }
+
                 else {
                     Toast.makeText(getApplicationContext(),"Failed broker list",Toast.LENGTH_SHORT).show();
                 }
@@ -99,7 +118,10 @@ ProgressBar progressBar;
         String plotno=plot_number.getEditText().getText().toString().trim();
         String size=plot_size.getEditText().getText().toString().trim();
         String descrip=plot_description.getEditText().getText().toString().trim();
-        String brokerselct=spinner.getSelectedItem().toString().trim();
+
+
+
+
 
         if (plotno.isEmpty())
         {
@@ -109,11 +131,10 @@ ProgressBar progressBar;
         {
             plot_size.setError("Enter the plot size");
         }
-        else if (brokerselct.equals("select broker")) {
-            Toast.makeText(getApplicationContext(),"Please select Type User",Toast.LENGTH_SHORT).show();
-        }
+
         else {
             progressBar.setVisibility(View.VISIBLE);
+
             PlotModel plotModel= new PlotModel(plotno,size,descrip,broker_id,yourprefrence.getData(SiteUtils.ID));
             addsingleplot(plotModel);
         }

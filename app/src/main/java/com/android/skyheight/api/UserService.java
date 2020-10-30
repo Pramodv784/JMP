@@ -6,10 +6,12 @@ import android.content.Context;
 
 import com.android.skyheight.model.ActiveUserModel;
 import com.android.skyheight.model.AddressModel;
+import com.android.skyheight.model.BookingListModel;
 import com.android.skyheight.model.BookingModel;
 import com.android.skyheight.model.DeleteModel;
 import com.android.skyheight.model.ImageModel;
 import com.android.skyheight.model.LoginModel;
+import com.android.skyheight.model.PlotDataModel;
 import com.android.skyheight.model.PlotExpenseModel;
 import com.android.skyheight.model.PlotListModel;
 import com.android.skyheight.model.PlotModel;
@@ -90,6 +92,9 @@ public interface UserService {
     Call<ArrayList<SiteListModel>> usersitelist();
     @GET("user")
     Call<ArrayList<UserList>> allbroker(@Header("Authorization") String token,
+                                        @Query("type") String type);
+    @GET("user")
+    Call<ArrayList<UserList>> allcustomer(@Header("Authorization") String token,
                                         @Query("type") String type);
     @GET("site/plot/list")
     Call<ArrayList<PlotListModel>> getplot(@Header("Authorization") String token,@Query("site") String site);
@@ -172,9 +177,10 @@ Call<ImageModel> upload(@Header("Authorization") String token, @Part MultipartBo
     Call<PlotListModel> plotbook(@Header("Authorization") String token, @Body BookingModel bookingModel);
 
     @GET("site/book")
-    Call<ArrayList<BookingModel>> bookinglist(@Header("Authorization") String token);
+    Call<ArrayList<BookingListModel>> bookinglist(@Header("Authorization") String token);
 
     @DELETE("site/book/{id}")
-    Call<BookingModel> delete_book_summary(@Header("Authorization") String token,@Path("id") String id);
-
+    Call<BookingListModel> delete_book_summary(@Header("Authorization") String token, @Path("id") String id);
+   @GET("user/{id}")
+    Call<UserDetail> singleuser(@Header("Authorization") String token,@Path("id") String id);
 }

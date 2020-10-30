@@ -44,6 +44,7 @@ public class UserAdaptor extends RecyclerView.Adapter<UserAdaptor.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull final UserAdaptor.ViewHolder holder, int position) {
         final UserList mylist=userlist.get(position);
+
         holder.user_name.setText(mylist.getUser_name());
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {

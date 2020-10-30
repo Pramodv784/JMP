@@ -1,5 +1,6 @@
 package com.android.skyheight.activity;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
@@ -145,4 +146,7 @@ public class CustomerListActivity extends AppCompatActivity{
         });
     }
 
+    public void adduser(View view) {
+        startActivity(new Intent(CustomerListActivity.this,SignupActivity.class));
+    }
 }

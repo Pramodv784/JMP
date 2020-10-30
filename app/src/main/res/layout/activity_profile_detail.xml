@@ -5,12 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/scroll"
+    android:theme="@style/MyMaterialTheme"
     tools:context=".activity.ProfileDetailActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="130dp"
@@ -20,7 +27,6 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
                 android:src="@drawable/user3"/>
 
             <TextView
@@ -32,6 +38,14 @@
                 android:text="Username"
                 android:textColor="#ffffff"
                 android:textSize="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/status"
+                android:layout_gravity="center"
+                android:text="Actvie"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -138,7 +152,49 @@
             android:layout_marginTop="5dp"
             android:id="@+id/user_type"
             android:textSize="15dp"/>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="0"
+          android:layout_margin="20dp"
+          android:layout_marginBottom="20dp"
+          android:layout_marginTop="20dp">
+          <Button
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Active"
+              android:id="@+id/active"
+              android:textColor="@color/white"
+              android:layout_marginRight="5dp"
+              android:layout_weight="0.5"
+              android:background="@drawable/btn"
+              />
+          <Button
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Deactive"
+              android:id="@+id/deactive"
+              android:textColor="@color/white"
+              android:layout_marginLeft="5dp"
+              android:background="@drawable/btn2"
+              android:layout_weight="0.5"
+              />
 
+      </LinearLayout>
 
     </LinearLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressbar"
+            android:indeterminate="true"
+
+            android:elevation="10dp"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="gone"/>
+    </RelativeLayout>
 </ScrollView>

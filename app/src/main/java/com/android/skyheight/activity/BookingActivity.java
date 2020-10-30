@@ -37,6 +37,7 @@ import com.android.skyheight.api.ApiClient;
 import com.android.skyheight.model.BookingModel;
 import com.android.skyheight.model.PlotListModel;
 import com.android.skyheight.model.SiteListModel;
+import com.android.skyheight.model.UserList;
 import com.android.skyheight.utils.ConstantClass;
 import com.android.skyheight.utils.Prefrence;
 import com.sayantan.advancedspinner.MultiSpinner;
@@ -46,6 +47,7 @@ import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -54,29 +56,34 @@ import retrofit2.Response;
 
 public class BookingActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener  {
-    Spinner spinner;
+    Spinner spinner,userspinner;
     String plotOwner;
     int amount;
-    String site_id,plot_id;
-    String siteselected;
+    String site_id,plot_id,user_id;
+    String siteselected,userselected;
     Prefrence yourprefrence;
     LinearLayout plottext;
     TextView total_amount,remain;
     int no_plot=0;
     String site_price;
-    List<Integer> plot_size1= new ArrayList<>();
+    //List<Integer> plot_size1= new ArrayList<>();
+   ArrayList<PlotListModel> plot_size1= new ArrayList<>();
     MultiSpinner multi_two;
     ProgressBar progressBar;
     String[] listItems = new String[]{};
-    EditText paid_amount,plot_owner;
+    EditText paid_amount;
     boolean[] checkedItems;
     ArrayList<SiteListModel> sitelist = new ArrayList<>();
+    ArrayList<UserList> userlist = new ArrayList<>();
     ArrayList<String> allsite = new ArrayList<String>();
+    ArrayList<String> allcustomer = new ArrayList<String>();
     ArrayList<PlotListModel> plotlist = new ArrayList<>();
     ArrayList<Integer> allplots = new ArrayList<Integer>();
     ArrayList<PlotListModel> mUserItems = new ArrayList<>();
-   ArrayList<String> spinnerlist =new ArrayList<>();
+    ArrayList<String> spinnerlist =new ArrayList<>();
     List<String> choice =new ArrayList<>();
+    List<String> choiceamount =new ArrayList<>();
+
     List<Integer> plotsno=new ArrayList<>();
     ProgressDialog progressDialog;
     int plot_total_amount=0;
@@ -95,6 +102,8 @@ public class BookingActivity extends AppCompatActivity implements
     int charBracketOpenCount=0, charBracketCloseCount=0, charInExceed=0, dotCount=0;
     char bracketOpen='(';
     char bracketClose=')';
+    String usertype="Customer";
+    HashMap<String,PlotListModel> maplist =new HashMap<String, PlotListModel>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,34 +114,31 @@ public class BookingActivity extends AppCompatActivity implements
         progressBar=findViewById(R.id.progressbar2);
         spinner.setOnItemSelectedListener(this);
         paid_amount=findViewById(R.id.paid_amount);
-        plot_owner=findViewById(R.id.plot_owner);
         total_amount=findViewById(R.id.total_amount);
         remain=findViewById(R.id.remain);
+        userspinner=findViewById(R.id.userspinner);
+        paid_amount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                remain.setText("");
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().length()>0) {
 
+                    plotdata();
+                    remain.setVisibility(View.VISIBLE);
+                }
+            }
 
-       paid_amount.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-               remain.setText("");
-           }
+            @Override
+            public void afterTextChanged(Editable s) {
 
-           @Override
-           public void onTextChanged(CharSequence s, int start, int before, int count) {
-               if (s.toString().length()>0) {
-
-               plotdata();
-               }
-           }
-
-           @Override
-           public void afterTextChanged(Editable s) {
-
-           }
-       });
+            }
+        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sitelist();
-
         progressDialog =new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
@@ -140,7 +146,6 @@ public class BookingActivity extends AppCompatActivity implements
         progressDialog.show();
 
     }
-
 
 
     private void sitelist() {
@@ -154,7 +159,7 @@ public class BookingActivity extends AppCompatActivity implements
                     if (!response.body().isEmpty()) {
                         sitelist = response.body();
                         for(int i=0;i<sitelist.size();i++){
-                            allsite.add(sitelist.get(i).getName().toString());
+                            allsite.add(sitelist.get(i).getName().substring(0,1).toUpperCase()+sitelist.get(i).getName().substring(1).toLowerCase());
                             site_id=sitelist.get(i).getid();
                             site_price=sitelist.get(i).getPrice();
 
@@ -164,36 +169,83 @@ public class BookingActivity extends AppCompatActivity implements
                                 ,R.layout.spinner_dropdown_layout,allsite);
                         aa.setDropDownViewResource(R.layout.spinner_layout);
                         spinner.setAdapter(aa);
+                        userlist(usertype);
                     }
                     else {
+                        progressDialog.dismiss();
                     }
                 }
                 else if (response.code()==401){
-
+                    progressDialog.dismiss();
                 }
                 else {
-
+                    progressDialog.dismiss();
                     Toast.makeText(getApplicationContext(),"List Failed ",Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<SiteListModel>> call, Throwable t) {
-
+                progressDialog.dismiss();
                 Log.e( "onResponse: ","failed"+t);
                 Toast.makeText(getApplicationContext(),"Please check your Internet connection ",Toast.LENGTH_SHORT).show();
 
             }
         });
     }
+    private void userlist(String usertype) {
+        Call<ArrayList<UserList>> userResponse=ApiClient.getUserService().allcustomer("Bearer "+yourprefrence
+                .getData(ConstantClass.TOKEN),usertype);
+        userResponse.enqueue(new Callback<ArrayList<UserList>>() {
+            @Override
+            public void onResponse(Call<ArrayList<UserList>> call, Response<ArrayList<UserList>> response) {
+                if (response.code()==200)
+                {
+                    progressDialog.dismiss();
+                    userlist=response.body();
+                    for (int i=0;i<userlist.size();i++)
+                    {
+                        allcustomer.add(userlist.get(i).getUser_name().substring(0,1).toUpperCase()+userlist.get(i)
+                                .getUser_name().substring(1).toLowerCase());
+                        user_id=userlist.get(i).getId();
+                    }
+                    ArrayAdapter<String> aa1 = new
+                            ArrayAdapter<String>(getApplicationContext()
+                            ,R.layout.spinner_dropdown_layout,allcustomer);
+                    aa1.setDropDownViewResource(R.layout.spinner_layout);
+                    userspinner.setAdapter(aa1);
+                }
+                else {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<UserList>> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"User List Failed",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        siteselected= (String) parent.getItemAtPosition(position);
-        site_id =sitelist.get(position).getid();
-        plotset();
+        switch (parent.getId())
+        {
+            case R.id.spinner:
+                siteselected= (String) parent.getItemAtPosition(position);
+                site_id =sitelist.get(position).getid();
+                plotset();
+              break;
+            case R.id.userspinner:
+                userselected=(String) parent.getItemAtPosition(position);
+                user_id =userlist.get(position).getId();
+
+        }
     }
     private void plotset() {
- progressDialog.show();
+        progressDialog.show();
         plot(site_id);
     }
     @Override
@@ -203,130 +255,139 @@ public class BookingActivity extends AppCompatActivity implements
     private void plot(String site_id) {
         Call<ArrayList<PlotListModel>> userResponse =ApiClient.getUserService()
                 .getplot("Bearer "+yourprefrence.getData(ConstantClass.TOKEN),site_id);
-     userResponse.enqueue(new Callback<ArrayList<PlotListModel>>() {
-         @Override
-         public void onResponse(Call<ArrayList<PlotListModel>> call, Response<ArrayList<PlotListModel>> response) {
-             if (response.code()==200) {
-                 progressDialog.dismiss();
-                 spinnerlist.clear();
-                 plotlist = response.body();
-                 int i;
-                 for (i = 0; i < plotlist.size(); i++)
-                    if (plotlist.isEmpty())
-                    {
-                       Toast.makeText(getApplicationContext(),"Plotlist",Toast.LENGTH_SHORT).show();
+        userResponse.enqueue(new Callback<ArrayList<PlotListModel>>() {
+            @Override
+            public void onResponse(Call<ArrayList<PlotListModel>> call, Response<ArrayList<PlotListModel>> response) {
+                if (response.code()==200) {
+                    progressDialog.dismiss();
+                    spinnerlist.clear();
+                    total_amount.setText("");
+                    choice.clear();
+                    plotlist = response.body();
+
+
+                    int i;
+                    int plot_num;
+                    for (i = 0; i < plotlist.size(); i++)
+                        if (plotlist.isEmpty())
+                        {
+                            Toast.makeText(getApplicationContext(),"Plotlist",Toast.LENGTH_SHORT).show();
+                        }
+
+                        else {
+                            Log.i("Plot number",  plotlist.get(i).getPlot_number());
+                            Log.i("Plot", "plot "+ plotlist.get(i));
+                            maplist.put(plotlist.get(i).getPlot_number(),plotlist.get(i));
+                            spinnerlist.add(plotlist.get(i).getPlot_number());
+                            //plot_size1.add(plotlist.get(i).getTotal_plot_amount());
+                        }
+                }
+                else if (response.code()==401)
+                {
+                    progressDialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"Failed to load Plots",Toast.LENGTH_SHORT).show();
+                }
+                multi_two.setSpinnerList(spinnerlist);
+
+                total_amount.setText("");
+                choice.clear();
+                multi_two.addOnItemsSelectedListener(new MultiSpinnerListener() {
+                    @Override
+                    public void onItemsSelected(List<String> choices, boolean[] selected) {
+                        total_amount.setText("");
+                        choiceamount.clear();
+                        plot_total_amount=0;
+                        choice.clear();
+                        selected=multi_two.getSelected();
+                         for(int i=0;i<choices.size();i++)
+                        {
+                            plot_size1.add(plotlist.get(i));
+
+                            plot_total_amount+=maplist.get(choices.get(i)).getTotal_plot_amount();
+                            plotsno.add(Integer.parseInt(maplist.get(choices.get(i)).getId()));
+                            Log.i("dta","selected item>>>"+choices+"selected id is "+choice);
+                            Log.i("","size of " + plotlist.get(i).getId() +"is" + plotlist.get(i).getTotal_plot_amount());
+                        }
+
+                        Log.i("","plot id>>>"+choices);
+                        Log.i("","plot mount"+plot_total_amount);
+                        total_amount.setText("Total Amount  ₹ "+String.valueOf(plot_total_amount));
+                        // plot_size1.add(plotlist.get(i).getTotal_plot_amount());
+                        no_plotadd();
+                        // plotbook();
+                        // Toast.makeText(BookingActivity.this, choices.get(i), Toast.LENGTH_SHORT).show();
                     }
-                 else {
-                        spinnerlist.add(plotlist.get(i).getPlot_number());
-                        //plot_size1.add(plotlist.get(i).getTotal_plot_amount());
-                    }
+                });
+                choice.clear();
+                multi_two.setLayout(R.layout.spinner_dropdown_layout);
+                //Toast.makeText(getApplicationContext(),"Plot"+plotlist,Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onFailure(Call<ArrayList<PlotListModel>> call, Throwable t) {
+                progressDialog.dismiss();
 
-
-             }
-                 multi_two.setSpinnerList(spinnerlist);
-                 multi_two.addOnItemsSelectedListener(new MultiSpinnerListener() {
-                     @Override
-                     public void onItemsSelected(List<String> choices, boolean[] selected) {
-                         int i;
-                         for (i = 0; i < choices.size(); i++)
-                             choice.add(plotlist.get(i).getId());
-                         plot_size1.add(plotlist.get(i).getTotal_plot_amount());
-                         no_plotadd();
-                         // plotbook();
-                         // Toast.makeText(BookingActivity.this, choices.get(i), Toast.LENGTH_SHORT).show();
-                     }
-                 });
-                 multi_two.setLayout(R.layout.spinner_dropdown_layout);
-
-                   //Toast.makeText(getApplicationContext(),"Plot"+plotlist,Toast.LENGTH_SHORT).show();
-
-
-             for (int i=0;i<plot_size1.size();i++)
-             {
-                 plot_total_amount+=plot_size1.get(i);
-             }
-             total_amount.setText("Total Amount  ₹ "+String.valueOf(plot_total_amount));
-             Log.e("dayta", "total>>>"+plot_total_amount);
-
-            /* for (int i=0;i<demolist.size();i++)
-             {
-                 plot_total_amount+=demolist.get(i);
-             }
-             total_amount.setText("Total Amount  ₹ "+String.valueOf(plot_total_amount));
-
-             Log.e("dayta", "total>>>"+plot_total_amount);
-*/
-
-
-         }
-
-
-         @Override
-         public void onFailure(Call<ArrayList<PlotListModel>> call, Throwable t) {
-             progressDialog.dismiss();
-
-         }
-     });
+            }
+        });
     }
-
     private void no_plotadd() {
-        for (int i=0;i<choice.size();i++){
+
+       /* for (int i=0;i<choice.size();i++){
             if (choice.get(i)!=null){
 
                 //plotstatus(choice.get(i));
                 plotsno.add(Integer.valueOf(choice.get(i)));
-
+               // plot_size1.add(Integer.parseInt(choice.get(i)));
             }
             else {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(),"Please Update The size of Plot",Toast.LENGTH_LONG).show();
             }
+        }*/
+        Log.i("message","patel"+plot_size1);
+//        total_amount.setText("");
 
-
-        }
-
-
+     /*   for (int i=0;i<plot_size1.size();i++)
+        {
+            Log.i("","sdsd"+ plot_size1.get(i).getTotal_plot_amount());
+            plot_total_amount+=plot_size1.get(i).getTotal_plot_amount();
+        }*/
+//        total_amount.setText("Total Amount  ₹ "+String.valueOf(plot_total_amount));
+        Log.e("dayta", "total>>>"+plot_size1);
     }
-
     public void plotdata()
-{
-
-     amount= Integer.parseInt(paid_amount.getText().toString());
-    Log.i("data","lis>>>"+plotOwner);
-    if (amount==plot_total_amount)
     {
-        remain.setText("Remaining Amount  ₹  0");
+        amount= Integer.parseInt(paid_amount.getText().toString());
+        Log.i("data","lis>>>"+plotOwner);
+        if (amount==plot_total_amount)
+        {
+            remain.setText("Remaining Amount  ₹  0");
+        }
+        else if (amount>plot_total_amount){
+            remain.setText("Extra Amount Paid  ₹ "+(-(plot_total_amount-amount)));
+            remaining_amount=-plot_total_amount-amount;
+        }
+        else {
+            remain.setText("Remaining Amount  ₹ "+(plot_total_amount-amount));
+            //remaining_amount= Integer.parseInt(remain.getText().toString());
+            remaining_amount=plot_total_amount-amount;
+        }
     }
-    else if (amount>plot_total_amount){
-        remain.setText("Extra Amount Paid  ₹ "+(-(plot_total_amount-amount)));
-        remaining_amount=-plot_total_amount-amount;
-
+    public void plotsetId(View view)
+    {
+        if (paid_amount.getText().toString().isEmpty())
+        {
+            paid_amount.setError("Enter Amount");
+            paid_amount.requestFocus();
+        }
+        else {
+            amount=Integer.parseInt(paid_amount.getText().toString());
+            progressBar.setVisibility(View.VISIBLE);
+            BookingModel bookingModel= new BookingModel(plotsno,user_id,amount,remaining_amount,plot_total_amount,site_id);
+            Log.i("data","dataaaa>>>"+bookingModel);
+            plotstatus(bookingModel);
+        }
     }
-    else {
-        remain.setText("Remaining Amount  ₹ "+(plot_total_amount-amount));
-        //remaining_amount= Integer.parseInt(remain.getText().toString());
-        remaining_amount=plot_total_amount-amount;
-
-    }
-
-}
-public void plotsetId(View view)
-{
-    plotOwner=plot_owner.getText().toString().trim();
-   if (plot_owner.getText().toString().isEmpty())
-   {
-       plot_owner.setError("Please Enter PLot Owner ");
-       plot_owner.requestFocus();
-   }
-   else {
-       progressBar.setVisibility(View.VISIBLE);
-       BookingModel bookingModel= new BookingModel(plotsno,plotOwner,amount,remaining_amount,plot_total_amount);
-       Log.i("data","dataaaa>>>"+bookingModel);
-       plotstatus(bookingModel);
-   }
-
-}
     private void plotstatus(BookingModel bookingModel) {
         Call<PlotListModel> userResponse=ApiClient.getUserService()
                 .plotbook("Bearer  "+yourprefrence.getData(ConstantClass.TOKEN),bookingModel);
@@ -344,14 +405,12 @@ public void plotsetId(View view)
                     Toast.makeText(getApplicationContext(),"PLot is Booked Failed",Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<PlotListModel> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext()," Failed",Toast.LENGTH_SHORT).show();
             }
         });
-
     }
     private void showCustomDialog() {
         ViewGroup viewGroup = findViewById(android.R.id.content);
@@ -384,11 +443,7 @@ public void plotsetId(View view)
 
         return super.onOptionsItemSelected(item);
     }
-
     private void calculator() {
-
-
-
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.activity_calculator, null);
@@ -426,7 +481,7 @@ public void plotsetId(View view)
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
         dialogBuilder.getWindow().setAttributes(lp);
-         clickButtonCE();
+        clickButtonCE();
     }
     public void clickButton1(View v) {
 

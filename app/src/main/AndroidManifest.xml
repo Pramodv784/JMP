@@ -56,13 +56,6 @@
         <activity
             android:name=".activity.SiteExpensesActivity"
             android:parentActivityName=".activity.SiteUpdateActivity" />
-        <activity android:name=".activity.CalculatorActivity" />
-        <activity
-            android:name=".activity.DeactivateActivity"
-            android:parentActivityName=".activity.DeactivateListActivity" />
-        <activity
-            android:name=".activity.DeactivateListActivity"
-            android:parentActivityName=".activity.AdminViewActivity" />
         <activity
             android:name=".activity.UpdateSiteActivity"
             android:parentActivityName=".activity.SiteUpdateActivity" />
@@ -76,12 +69,6 @@
             android:name=".activity.UserPlotDetailActivity"
             android:parentActivityName=".activity.PlotListActivity" />
         <activity
-            android:name=".activity.OwnerListActivity"
-            android:parentActivityName=".activity.AdminViewActivity" />
-        <activity
-            android:name=".activity.AddOwnerActivity"
-            android:parentActivityName=".activity.AdminViewActivity" />
-        <activity
             android:name=".activity.PlotDetailActivity"
             android:parentActivityName=".activity.UserPlotListActivity" />
         <activity
@@ -94,9 +81,6 @@
             android:name=".activity.NumberOfPlotActivity"
             android:parentActivityName=".activity.AdminViewActivity" />
         <activity
-            android:name=".activity.ActivateActivity"
-            android:parentActivityName=".activity.ActivateUserActivity" />
-        <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -108,9 +92,6 @@
         <activity
             android:name=".activity.AddPlotActivity"
             android:parentActivityName=".activity.UserPlotListActivity" />
-        <activity
-            android:name=".activity.ActivateUserActivity"
-            android:parentActivityName=".activity.AdminViewActivity" />
         <activity
             android:name=".activity.ProfileDetailActivity"
             android:parentActivityName=".activity.CustomerListActivity" />

@@ -26,7 +26,8 @@ import android.widget.Toast;
 
 import com.android.skyheight.BuildConfig;
 import com.android.skyheight.R;
-import com.android.skyheight.model.BookingModel;
+import com.android.skyheight.model.BookingListModel;
+import com.android.skyheight.model.PlotListModel;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,8 +35,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BookedPrintActivity extends AppCompatActivity {
-TextView sitename,no_plot,remaining,total;
-BookingModel bookingModel;
+TextView sitename,remaining,total,username,user_address,user_mobile,paid_amount;
+BookingListModel bookingModel;
     LinearLayout llScroll;
     private Bitmap bitmap;
     ListView plotlist;
@@ -44,7 +45,7 @@ BookingModel bookingModel;
 
     RelativeLayout relativeLayout;
     ListView listView;
-    ArrayList<Integer> plotnumbers = new ArrayList<Integer>();
+    ArrayList<String> plotnumbers =new ArrayList<>() ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,31 +55,35 @@ BookingModel bookingModel;
         remaining=findViewById(R.id.remaining_amount);
         total=findViewById(R.id.total_amount);
         listView=findViewById(R.id.plotlist);
-
+        sitename=findViewById(R.id.site_name);
+        username=findViewById(R.id.username);
+        paid_amount=findViewById(R.id.paid_amount);
         relativeLayout=findViewById(R.id.relative_layout2);
+        user_address=findViewById(R.id.user_address);
+        user_mobile=findViewById(R.id.user_mobile);
+
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
-        bookingModel = (BookingModel) args.getSerializable("ARRAYLIST");
-        total.setText(" ₹  "+String.valueOf(bookingModel.getPaid_amount()));
-        remaining.setText(" ₹  "+String.valueOf(bookingModel.getRemaining_amount()));
-
-
-
+        bookingModel = (BookingListModel) args.getSerializable("ARRAYLIST");
+        username.setText(bookingModel.getBuyer().getUsername());
+        user_address.setText(bookingModel.getBuyer().address);
+        user_mobile.setText(bookingModel.getBuyer().getMobile_number());
+        sitename.setText(bookingModel.getSite().getName());
+        paid_amount.setText(String.valueOf(bookingModel.getPaid_amount()));
+        remaining.setText(String.valueOf(bookingModel.getRemaining_amount()));
+        total.setText(String.valueOf(bookingModel.getTotal_amount()));
         for (int i=0;i<bookingModel.getPlot().size();i++)
         {
             plotnumbers.add(bookingModel.getPlot().get(i).getPlot_number());
+
         }
-        ArrayAdapter adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_list_item_1,plotnumbers);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,plotnumbers);
         listView.setAdapter(adapter);
-
     }
-
-
-
     public void pdf(View view) {
         bitmap = loadBitmapFromView(llScroll, llScroll.getWidth(), llScroll.getHeight());
         createPdf();

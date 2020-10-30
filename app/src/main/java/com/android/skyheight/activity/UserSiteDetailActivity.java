@@ -42,7 +42,6 @@ import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,10 +92,23 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
         final Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         siteListModel = (SiteListModel) args.getSerializable("ARRAYLIST");
+           if (siteListModel.getOwner()==null)
+           {
+                mobile="000000";
+           }
+           else {
+               if (!siteListModel.getOwner().getMobile_number().isEmpty())
+               {
+                   mobile = siteListModel.getOwner().getMobile_number();
+
+               }
+               else {
+                   mobile="00000";
+               }
+
+           }
 
 
-
-        mobile = siteListModel.getOwner().getMobile_number();
         String upperString = siteListModel.getOwner().getUsername().substring(0, 1).toUpperCase() + siteListModel.getOwner().getUsername().substring(1).toLowerCase();
         owner1.setText(upperString);
         site_id = siteListModel.getid();
@@ -287,7 +299,7 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
                     } else {
                         progressBar2.setVisibility(View.GONE);
                         linerlayout.setVisibility(View.GONE);
-                        relativeLayout.setBackgroundResource(R.drawable.emptyitem);
+                        relativeLayout.setBackgroundResource(R.drawable.we);
                         Toast.makeText(getApplicationContext(), "Empty List", Toast.LENGTH_SHORT).show();
 
                     }

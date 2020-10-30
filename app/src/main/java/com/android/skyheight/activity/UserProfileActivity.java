@@ -50,6 +50,7 @@ Prefrence yourprefrence;
         editmobile=findViewById(R.id.editmobile);
         btn=findViewById(R.id.btn);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
         yourprefrence = Prefrence.getInstance(UserProfileActivity.this);
         user_name.setText(yourprefrence.getData(ConstantClass.USERNAME));
         username1.setText(yourprefrence.getData(ConstantClass.USERNAME));
@@ -76,11 +77,8 @@ Prefrence yourprefrence;
         String add = editaddress.getText().toString();
         UserDetail userDetail = new UserDetail(un,null,null,m,null,add,null);
         updateuser(userDetail);
-
-
         //startActivity(new Intent(UserProfileActivity.this,UpdateUserActivity.class));
     }
-
     private void updateuser(UserDetail userDetail) {
         ButtonActivated();
         Call<UserDetail> userResponse = ApiClient.getUserService()
@@ -103,18 +101,13 @@ Prefrence yourprefrence;
             public void onFailure(Call<UserDetail> call, Throwable t) {
                 ButtonFinished();
                 Toast.makeText(getApplicationContext()," Failed ",Toast.LENGTH_SHORT).show();
-
             }
-        });
-
-    }
-
+        }); }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.userprofile,menu);
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())

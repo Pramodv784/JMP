@@ -76,7 +76,7 @@ public class PlotListActivity extends AppCompatActivity {
                     else {
                         swipeRefreshLayout.setRefreshing(false);
                         progressBar.setVisibility(View.GONE);
-                        recyclerView.setBackgroundResource(R.drawable.emptyitem);
+                        recyclerView.setBackgroundResource(R.drawable.we);
                     }
                 }
                 else {  swipeRefreshLayout.setRefreshing(false);

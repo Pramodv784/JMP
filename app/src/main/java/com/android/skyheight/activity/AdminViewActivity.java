@@ -39,13 +39,9 @@ public class AdminViewActivity extends AppCompatActivity {
         startActivity(new Intent(AdminViewActivity.this, SiteListActivity.class));
     }
 
-    public void addpartner(View view) {
-        startActivity(new Intent(AdminViewActivity.this, AddOwnerActivity.class));
-    }
 
-    public void removeowner(View view) {
-        startActivity(new Intent(AdminViewActivity.this, OwnerListActivity.class));
-    }
+
+
 
     public void summary(View view) {
         Toast.makeText(getApplicationContext(),"Feature In Progress... ",Toast.LENGTH_SHORT).show();
@@ -53,13 +49,9 @@ public class AdminViewActivity extends AppCompatActivity {
 
 
 
-    public void activate(View view) {
-        startActivity(new Intent(AdminViewActivity.this,ActivateUserActivity.class));
-    }
 
-    public void deactive(View view) {
-        startActivity(new Intent(AdminViewActivity.this, DeactivateListActivity.class));
-    }
+
+
 
     public void removesite(View view) {
         startActivity(new Intent(AdminViewActivity.this, SiteListActivity.class));

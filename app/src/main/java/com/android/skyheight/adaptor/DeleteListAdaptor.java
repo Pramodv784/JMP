@@ -18,6 +18,7 @@ import com.android.skyheight.activity.SiteDetailActivity;
 import com.android.skyheight.model.SiteListModel;
 import com.android.skyheight.utils.Prefrence;
 import com.android.skyheight.utils.SiteUtils;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,6 +51,14 @@ public class DeleteListAdaptor extends RecyclerView.Adapter<DeleteListAdaptor.Vi
         youprefrence=Prefrence.getInstance(context);
         final SiteListModel siteModel=list.get(position);
         holder.site_size.setText(siteModel.getArea());
+        if (siteModel.getImage()==null || siteModel.getImage().equals("")){
+            holder.site_image.setImageResource(R.drawable.plotimage2);
+
+        }
+        else {
+            Picasso.get().load(siteModel.getImage()).into(holder.site_image);
+
+        }
          if (siteModel.getOwner()!=null){
              if (siteModel.getOwner().getUsername()!=null){
                  holder.site_owner.setText(siteModel.getOwner().getUsername());

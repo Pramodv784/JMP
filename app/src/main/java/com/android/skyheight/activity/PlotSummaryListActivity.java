@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -81,8 +82,8 @@ PlotSummaryAdaptor plotSummaryAdaptor;
                     else {
                         progressBar.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(false);
-                        relative.setBackgroundResource(R.drawable.emptyitem);
-                        Toast.makeText(getApplicationContext(),"Failed to load sumaary ",Toast.LENGTH_SHORT).show();
+                        relative.setBackgroundResource(R.drawable.we);
+                        Toast.makeText(getApplicationContext(),"Empty List ",Toast.LENGTH_SHORT).show();
 
                     }
                 }

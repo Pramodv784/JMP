@@ -27,6 +27,16 @@
             android:iconTint="@color/navi_icon"
             android:icon="@drawable/profile_user_icon"
             android:title="PROFILE" />
+        <item
+            android:id="@+id/userlist"
+            android:iconTint="@color/navi_icon"
+            android:icon="@drawable/admin_icon"
+            android:title="USER LIST" />
+        <item
+            android:id="@+id/book_summary"
+            android:iconTint="@color/navi_icon"
+            android:icon="@drawable/book_summary_icon"
+            android:title="BOOK SUMMARY" />
 
 
     </group>

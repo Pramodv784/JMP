@@ -237,6 +237,7 @@ public class PlotDetailActivity extends AppCompatActivity implements
         {
             case R.id.delete:
                 showAlertDialog();
+                break;
             case R.id.summary:
               Intent intent= new Intent(PlotDetailActivity.this,PlotSummaryListActivity.class);
               intent.putExtra("plot",plot_id);

@@ -19,7 +19,9 @@ import com.android.skyheight.R;
 import com.android.skyheight.activity.BookedPrintActivity;
 import com.android.skyheight.activity.PlotSumaryActivity;
 import com.android.skyheight.model.AddressModel;
+import com.android.skyheight.model.BookingListModel;
 import com.android.skyheight.model.BookingModel;
+import com.android.skyheight.model.PlotDataModel;
 import com.android.skyheight.model.PlotSummaryModel;
 import com.android.skyheight.model.SiteListModel;
 import com.android.skyheight.model.UserDetail;
@@ -31,18 +33,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
+
 public class BookListAdaptor extends RecyclerView.Adapter<BookListAdaptor.ViewHolder> {
-    private ArrayList<BookingModel> bookingmodel;
+    private ArrayList<BookingListModel> bookingmodel;
     private Context context;
-    List<BookingModel> list;
-    ArrayList<AddressModel> address = new ArrayList<AddressModel>();
-    //ArrayList<UserDetail> owner = new ArrayList<UserDetail>();
+    List<BookingListModel> list;
+
     ArrayList<SiteListModel> sitlist= new ArrayList<SiteListModel>();
     private SiteListModel siteListModel;
     String useName;
     private String owner;
    UserDetail owner3;
-    public BookListAdaptor(Context context, ArrayList<BookingModel> bookingmodel, List<BookingModel> list) {
+    public BookListAdaptor(Context context, ArrayList<BookingListModel> bookingmodel, List<BookingListModel> list) {
         this.context = context;
         this.bookingmodel=bookingmodel;
         this.list=list;
@@ -59,9 +62,10 @@ public class BookListAdaptor extends RecyclerView.Adapter<BookListAdaptor.ViewHo
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final BookingModel bookinglist=list.get(position);
+        final BookingListModel bookinglist=list.get(position);
 
-            holder.user_name.setText(bookinglist.getBuyer());
+
+            holder.user_name.setText(bookinglist.getBuyer().getUsername());
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override

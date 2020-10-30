@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/relative_layout2"
+    android:theme="@style/MyMaterialTheme"
     tools:context=".activity.CustomerListActivity">
     <ProgressBar
         android:layout_width="wrap_content"
@@ -26,4 +27,27 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         tools:context=".activity.CustomerListActivity"/>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:id="@+id/addbtn"
+       android:onClick="adduser"
+        android:text="Add User"
+        android:textAllCaps="false"
+        android:textSize="15dp"
+        app:iconSize="32dp"
+        app:icon="@drawable/pluse_icon"
+        app:iconTint="@color/white"
+        app:rippleColor="@color/white"
+        app:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textAlignment="textStart"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentRight="true"
+        app:fab_colorNormal="@color/colorPrimary"
+        android:layout_marginBottom="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="start" />
 </RelativeLayout>

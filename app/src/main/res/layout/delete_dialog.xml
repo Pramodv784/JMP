@@ -42,7 +42,7 @@
             android:layout_marginLeft="30dp"
             android:onClick="ok"
             android:layout_marginRight="5dp"
-            android:background="@drawable/input_field2"
+            android:background="@drawable/input_field"
             android:text="Ok"
             android:textColor="@color/black"/>
     <androidx.appcompat.widget.AppCompatButton
@@ -54,9 +54,9 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="5dp"
         android:onClick="Cancel"
-        android:background="@drawable/input_field2"
+        android:background="@drawable/btn"
         android:text="Cancel"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 </LinearLayout>
     </LinearLayout>
 </LinearLayout>

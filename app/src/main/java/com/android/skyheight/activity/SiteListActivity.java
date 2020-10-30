@@ -85,7 +85,7 @@ public class SiteListActivity extends AppCompatActivity {
                      }
                      else {
                          progressBar.setVisibility(View.GONE);
-                         recyclerView.setBackgroundResource(R.drawable.emptyitem);
+                         recyclerView.setBackgroundResource(R.drawable.we);
                      }
                 }
                 else {
