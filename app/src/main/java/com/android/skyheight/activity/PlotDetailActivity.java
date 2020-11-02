@@ -43,6 +43,7 @@ import com.android.skyheight.utils.SiteUtils;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -81,6 +82,7 @@ public class PlotDetailActivity extends AppCompatActivity implements
     int charBracketOpenCount=0, charBracketCloseCount=0, charInExceed=0, dotCount=0;
     char bracketOpen='(';
     char bracketClose=')';
+    PlotListModel plotListModel;
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -92,7 +94,6 @@ public class PlotDetailActivity extends AppCompatActivity implements
         plot_description=findViewById(R.id.plot_description);
         //btn_book = findViewById(R.id.btn_book);
         yourprefrence=Prefrence.getInstance(this);
-        plot_owner=findViewById(R.id.plot_owner);
        // btn_unbook =findViewById(R.id.btn_unbook);
         progressBar=findViewById(R.id.progressbar);
         constraint=findViewById(R.id.constraint);
@@ -106,7 +107,7 @@ public class PlotDetailActivity extends AppCompatActivity implements
         brokerlist(type1);
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
-        PlotListModel plotListModel = (PlotListModel) args.getSerializable("ARRAYLIST");
+        plotListModel = (PlotListModel) args.getSerializable("ARRAYLIST");
         plot_number.setText(plotListModel.getPlot_number());
   plot_size2.addTextChangedListener(new TextWatcher() {
       @Override
@@ -200,12 +201,9 @@ public class PlotDetailActivity extends AppCompatActivity implements
             public void onResponse(Call<ArrayList<UserList>> call, Response<ArrayList<UserList>> response) {
                 if (response.code()==200){
                     brokerlist=response.body();
-
-
                     for(int i=0;i<brokerlist.size();i++){
-
-                        allbroker.add(brokerlist.get(i).getUser_name().toString());
-                        broker_id=brokerlist.get(i).getId();
+                        allbroker.add(brokerlist.get(i).getUser_name().substring(0,1).toUpperCase()+brokerlist.get(i)
+                                .getUser_name().substring(1).toLowerCase());
 
                     }
                     ArrayAdapter<String> aa = new
@@ -242,6 +240,13 @@ public class PlotDetailActivity extends AppCompatActivity implements
               Intent intent= new Intent(PlotDetailActivity.this,PlotSummaryListActivity.class);
               intent.putExtra("plot",plot_id);
               startActivity(intent);
+              break;
+            case R.id.booking:
+                Intent intent1 = new Intent(PlotDetailActivity.this, BookSinglePlotActivity.class);
+                Bundle args = new Bundle();
+                args.putSerializable("ARRAYLIST", (Serializable)plotListModel );
+                intent1.putExtra("BUNDLE", args);
+                startActivity(intent1);
 
         }
         return(super.onOptionsItemSelected(item));
@@ -254,9 +259,10 @@ public class PlotDetailActivity extends AppCompatActivity implements
         String description=plot_description.getText().toString().trim();
         int site= Integer.parseInt(yourprefrence.getData(SiteUtils.ID));
         String p_id=plot_id;
-        String owner=plot_owner.getText().toString().trim();
+        int position=spinner.getSelectedItemPosition();
+        broker_id=brokerlist.get(position).getId();
         PlotUpdateModel plotUpdateModel= new PlotUpdateModel(plot_no,
-                description,plotSize,p_id,site,null,broker_id,owner);
+                description,plotSize,p_id,site,status,broker_id,null);
         newupdate(plotUpdateModel,p_id);
 
     }
@@ -278,15 +284,12 @@ public class PlotDetailActivity extends AppCompatActivity implements
                     Toast.makeText(getApplicationContext(),"Failed to Update plot",Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
             public void onFailure(Call<PlotUpdateModel> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(),"Failed some thing went wrong",Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
     private void showAlertDialog() {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(PlotDetailActivity.this);

@@ -2,6 +2,7 @@ package com.android.skyheight.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -58,7 +59,6 @@ public class AddPartnerSiteActivity extends AppCompatActivity implements
 
         sit=intent.getStringExtra("site");
        // site_name.setText(siteListModel.getName());
-         allpartner.add("Select Partner");
 
 
 
@@ -74,8 +74,9 @@ public class AddPartnerSiteActivity extends AppCompatActivity implements
                     partnerlist=response.body();
                     for(int i=0;i<partnerlist.size();i++){
 
-                        allpartner.add(partnerlist.get(i).getUser_name().toString());
-                        partner_id=partnerlist.get(i).getId();
+                        allpartner.add(partnerlist.get(i).getUser_name().substring(0,1).toUpperCase()+partnerlist.get(i)
+                                .getUser_name().substring(1).toLowerCase());
+
 
                     }
                     ArrayAdapter<String> aa = new
@@ -111,6 +112,8 @@ public class AddPartnerSiteActivity extends AppCompatActivity implements
     public void addpartner_in_site(View view) {
 
             String partnerselected=spinner.getSelectedItem().toString();
+            int position=spinner.getSelectedItemPosition();
+            partner_id=partnerlist.get(position).getId();
 
         if (partnerselected.equals("Select Partner")) {
             progressBar.setVisibility(View.GONE);

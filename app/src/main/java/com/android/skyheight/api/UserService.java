@@ -146,8 +146,7 @@ Call<PlotUpdateModel> deleteplot(@Header("Authorization") String token,@Path("id
 
 
 @GET("site/site-image/{site_id}")
-Call<ArrayList<ImageModel>> allimages(@Header("Authorization")
-                                              String token,@Path("site_id") String site_id);
+Call<ArrayList<ImageModel>> allimages(@Path("site_id") String site_id);
 @Multipart
 @POST("site/site-image")
 Call<ImageModel> upload(@Header("Authorization") String token, @Part MultipartBody.Part image,

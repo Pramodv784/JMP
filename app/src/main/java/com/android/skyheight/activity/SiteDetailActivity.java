@@ -141,8 +141,7 @@ public class SiteDetailActivity extends AppCompatActivity {
     }
     public void getImages(){
         Call<ArrayList<ImageModel>> userResponse = ApiClient.
-                getUserService().allimages("Bearer "+yourprefrence.getData(ConstantClass.TOKEN)
-                ,site_id);
+                getUserService().allimages(site_id);
         userResponse.enqueue(new Callback<ArrayList<ImageModel>>() {
             @Override
             public void onResponse(Call<ArrayList<ImageModel>> call, Response<ArrayList<ImageModel>> response) {

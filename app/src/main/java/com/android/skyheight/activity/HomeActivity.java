@@ -97,14 +97,19 @@ public class HomeActivity  extends AppCompatActivity
             Menu menu = navigationView.getMenu();
             menu.findItem(R.id.login).setVisible(false);
             menu.findItem(R.id.userregister).setVisible(false);
+            String upperString = yourprefrence.getData(ConstantClass.USERNAME).substring(0, 1).
+                    toUpperCase() + yourprefrence.getData(ConstantClass.USERNAME).substring(1).toLowerCase();
+            userName.setText("  Hi  "+upperString);
+            userName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.smiley_icon,0,0,0);
         }
         else {
-            userName.setText("Guest User");
+            userName.setText("  Hi  Guest User");
+            userName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.smiley_icon,0,0,0);
             hidedrawermenu();
         }
 
-       userName.setText("  Hi  "+yourprefrence.getData(ConstantClass.USERNAME));
-       userName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.smiley_icon,0,0,0);
+
+
        if (yourprefrence.getData(ConstantClass.TYPE).equals("Super_Admin"))
        {
            typeuser.setText("Super Admin");

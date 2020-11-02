@@ -177,38 +177,7 @@
                     />
 
             </RelativeLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:showDividers="beginning"
-                android:divider="@drawable/divider"
-                android:padding="10dp"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Owner Name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:textStyle="normal"
-                    android:textAllCaps="true"
-                    android:textSize="10dp"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="name"
-                    android:id="@+id/owner_name"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:textStyle="normal"
-                    android:textSize="15dp"
-                    />
 
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

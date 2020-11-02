@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,12 +17,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.skyheight.R;
+import com.android.skyheight.adaptor.ImageAdaptor;
+import com.android.skyheight.model.ImageModel;
 import com.android.skyheight.model.SiteListModel;
+import com.denzcoskun.imageslider.adapters.ViewPagerAdapter;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import ozaydin.serkan.com.image_zoom_view.ImageViewZoom;
 import ozaydin.serkan.com.image_zoom_view.ImageViewZoomConfig;
@@ -33,10 +38,14 @@ ImageViewZoom photoView;
     private ScaleGestureDetector scaleGestureDetector;
     private float mScaleFactor = 1.0f;
     Toolbar toolbar;
+    ImageAdaptor imageAdaptor;
+    ViewPager viewPager;
+    ArrayList<ImageModel> images=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_view);
+        toolbar = findViewById(R.id.toolbar);
         photoView=(ImageViewZoom) findViewById(R.id.photoview);
         toolbar=findViewById(R.id.toolbar);
         photoView.getBase64();
@@ -76,4 +85,5 @@ ImageViewZoom photoView;
 
 
     }
+
 }

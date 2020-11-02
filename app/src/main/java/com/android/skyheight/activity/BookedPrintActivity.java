@@ -1,5 +1,6 @@
 package com.android.skyheight.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
@@ -15,6 +16,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -69,25 +72,46 @@ BookingListModel bookingModel;
         final Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         bookingModel = (BookingListModel) args.getSerializable("ARRAYLIST");
-        username.setText(bookingModel.getBuyer().getUsername());
+
+        String upperString = bookingModel.getBuyer().getUsername().substring(0, 1).toUpperCase()
+                + bookingModel.getBuyer().getUsername().substring(1).toLowerCase();
+        username.setText(upperString);
         user_address.setText(bookingModel.getBuyer().address);
         user_mobile.setText(bookingModel.getBuyer().getMobile_number());
-        sitename.setText(bookingModel.getSite().getName());
-        paid_amount.setText(String.valueOf(bookingModel.getPaid_amount()));
-        remaining.setText(String.valueOf(bookingModel.getRemaining_amount()));
-        total.setText(String.valueOf(bookingModel.getTotal_amount()));
+        String upperString1 = bookingModel.getSite().getName().substring(0, 1).toUpperCase()
+                + bookingModel.getSite().getName().substring(1).toLowerCase();
+        sitename.setText(upperString1);
+        paid_amount.setText("₹  "+String.valueOf(bookingModel.getPaid_amount()));
+        remaining.setText("₹   "+String.valueOf(bookingModel.getRemaining_amount()));
+        total.setText("₹   "+String.valueOf(bookingModel.getTotal_amount()));
         for (int i=0;i<bookingModel.getPlot().size();i++)
         {
-            plotnumbers.add(bookingModel.getPlot().get(i).getPlot_number());
+            plotnumbers.add("Plot Number  "+bookingModel.getPlot().get(i).getPlot_number());
 
         }
         ArrayAdapter adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,plotnumbers);
         listView.setAdapter(adapter);
     }
-    public void pdf(View view) {
-        bitmap = loadBitmapFromView(llScroll, llScroll.getWidth(), llScroll.getHeight());
-        createPdf();
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pdfmenu, menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.pdf:
+                bitmap = loadBitmapFromView(llScroll, llScroll.getWidth(), llScroll.getHeight());
+                createPdf();
+        }
+        return  super.onOptionsItemSelected(item);
+    }
+
     public static Bitmap loadBitmapFromView(View v, int width, int height) {
         Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);

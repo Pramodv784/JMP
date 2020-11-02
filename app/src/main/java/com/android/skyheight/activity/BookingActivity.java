@@ -206,7 +206,7 @@ public class BookingActivity extends AppCompatActivity implements
                     {
                         allcustomer.add(userlist.get(i).getUser_name().substring(0,1).toUpperCase()+userlist.get(i)
                                 .getUser_name().substring(1).toLowerCase());
-                        user_id=userlist.get(i).getId();
+
                     }
                     ArrayAdapter<String> aa1 = new
                             ArrayAdapter<String>(getApplicationContext()
@@ -240,7 +240,7 @@ public class BookingActivity extends AppCompatActivity implements
               break;
             case R.id.userspinner:
                 userselected=(String) parent.getItemAtPosition(position);
-                user_id =userlist.get(position).getId();
+
 
         }
     }
@@ -358,6 +358,8 @@ public class BookingActivity extends AppCompatActivity implements
     public void plotdata()
     {
         amount= Integer.parseInt(paid_amount.getText().toString());
+        int position=userspinner.getSelectedItemPosition();
+        user_id=userlist.get(position).getId();
         Log.i("data","lis>>>"+plotOwner);
         if (amount==plot_total_amount)
         {

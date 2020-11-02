@@ -10,6 +10,15 @@ public class PlotListModel  implements Serializable {
     private Boolean status;
     private String id;
     private int total_plot_amount;
+    String site;
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
 
     public int getTotal_plot_amount() {
         return total_plot_amount;
@@ -27,12 +36,13 @@ public class PlotListModel  implements Serializable {
         this.id = id;
     }
 
-    public PlotListModel(String plot_number, String description, int size, Boolean status, String id) {
+    public PlotListModel(String plot_number, String description, int size, Boolean status, String id,String site) {
         this.plot_number = plot_number;
         this.description = description;
          this.size=size;
         this.status = status;
         this.id=id;
+        this.site=site;
     }
 
     public String getPlot_number() {

@@ -3,6 +3,7 @@ package com.android.skyheight.adaptor;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,9 @@ public class PlotListAdaptor extends RecyclerView.Adapter<PlotListAdaptor.ViewHo
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context,"Plot is Booked",Toast.LENGTH_SHORT).show();
+                    Toast toast=Toast.makeText(context,"Plot is Booked",Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
                 }
             });
          }

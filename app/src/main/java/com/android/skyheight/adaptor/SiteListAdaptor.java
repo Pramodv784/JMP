@@ -99,7 +99,7 @@ public class SiteListAdaptor extends RecyclerView.Adapter<SiteListAdaptor.ViewHo
 
         //holder.site_image.setImageResource(Integer.parseInt(mylist.getImage()));
 
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.site_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

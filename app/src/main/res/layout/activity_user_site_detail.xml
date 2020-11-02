@@ -92,6 +92,30 @@
         android:textSize="15dp"
         />
     <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="bangali Square"
+        android:id="@+id/area1"
+        android:layout_below="@+id/location"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:textStyle="normal"
+        android:textSize="15dp"
+        />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="82  manavta nagar"
+        android:id="@+id/street"
+        android:layout_below="@+id/location"
+        android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:textStyle="normal"
+        android:textSize="15dp"
+        />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="600 sqft"

@@ -67,8 +67,9 @@
                     android:drawablePadding="10dp"
                     android:fontFamily="sans-serif-light"
                     app:iconPosition="right"
-                    app:showPasswordIcon="@drawable/eye_close_icon"
+
                     app:hidePasswordIcon="@drawable/eye_icon"
+                    app:showPasswordIcon="@drawable/eye_close_icon"
                     android:padding="15dp"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"

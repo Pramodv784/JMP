@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,6 +43,7 @@ import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +51,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 public class UserSiteDetailActivity extends AppCompatActivity implements RecycleViewInterface {
-    TextView owner1, area, price, location, llocation, owner_contact;
+    TextView owner1, area, price, location, llocation, owner_contact,area1,street;
     FloatingActionButton fab;
     String site_id;
     String mobile;
@@ -87,6 +89,8 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
         linerlayout = findViewById(R.id.linerlayout);
         owner_contact = findViewById(R.id.mobile);
         progressBar = findViewById(R.id.progressbar);
+        area1=findViewById(R.id.area1);
+        street=findViewById(R.id.street);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressBar.setVisibility(View.VISIBLE);
         final Intent intent = getIntent();
@@ -107,26 +111,29 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
                }
 
            }
-
-
         String upperString = siteListModel.getOwner().getUsername().substring(0, 1).toUpperCase() + siteListModel.getOwner().getUsername().substring(1).toLowerCase();
         owner1.setText(upperString);
         site_id = siteListModel.getid();
-
         getImages();
         plotlist(site_id);
-        price.setText("₹  " + siteListModel.getPrice() + " Sq/ft");
+        price.setText("₹  " + siteListModel.getPrice() + " /Sqft");
         if (siteListModel.getSite_location() != null) {
-            llocation.setText(siteListModel.site_location.getAddress());
+            String upperString1 = siteListModel.getSite_location().getCity().substring(0, 1).toUpperCase()
+                    + siteListModel.getSite_location().getCity().substring(1).toLowerCase();
+            llocation.setText(upperString1);
+            String upperarea=siteListModel.getSite_location().getAddress().substring(0,1).toUpperCase()
+                    +siteListModel.getSite_location().getAddress().substring(1).toLowerCase();
+            String upperstreet=siteListModel.getSite_location().getStreet().substring(0,1).toUpperCase()
+                    +siteListModel.getSite_location().getStreet().substring(1).toLowerCase();
+            area1.setText(upperarea);
+            street.setText(upperstreet);
         } else {
             llocation.setText("null");
         }
         // owner_contact.setText(siteListModel.getOwner().mobile_number);
         // site_description.setText(siteListModel.getDescription());
-
-
         if (siteListModel.getArea() != null) {
-            area.setText(siteListModel.getArea()+" Sq/ft");
+            area.setText(siteListModel.getArea()+" Sq.ft");
         } else {
             area.setText("Null");
         }
@@ -142,7 +149,6 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
             }
         });
     }
-
     public void call(View view) {
         callPhoneNumber();
     }
@@ -155,7 +161,6 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
             }
         }
     }
-
     private void callPhoneNumber() {
         try {
             if (Build.VERSION.SDK_INT > 22) {
@@ -183,8 +188,7 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
 
     public void getImages() {
         Call<ArrayList<ImageModel>> userResponse = ApiClient.
-                getUserService().allimages("Bearer " + yourprefrence.getData(ConstantClass.TOKEN)
-                , site_id);
+                getUserService().allimages(site_id);
         userResponse.enqueue(new Callback<ArrayList<ImageModel>>() {
             @Override
             public void onResponse(Call<ArrayList<ImageModel>> call, Response<ArrayList<ImageModel>> response) {
@@ -216,28 +220,27 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
                         slideModels.add(new SlideModel(R.drawable.plotimage2, siteListModel.getName(), ScaleTypes.FIT));
                     }
                     imageSlider.setImageList(slideModels, ScaleTypes.FIT);
-                    imageSlider.setItemClickListener(new ItemClickListener() {
-                        @Override
-                        public void onItemSelected(int i) {
-                            if (!images.isEmpty())
-                            {
-                                Intent intent1=new Intent(UserSiteDetailActivity.this,ImageViewActivity.class);
-                                intent1.putExtra("i",images.get(i).getImage());
-                                startActivity(intent1);
-                            }
-                            Intent intent1=new Intent(UserSiteDetailActivity.this,ImageViewActivity.class);
-                            intent1.putExtra("i",siteListModel.getImage());
-                            startActivity(intent1);
+                     imageSlider.setItemClickListener(new ItemClickListener() {
+                         @Override
+                         public void onItemSelected(int i) {
+                             if (!images.isEmpty())
+                             {
+                                 Intent intent1=new Intent(UserSiteDetailActivity.this,ImageViewActivity.class);
+                                 intent1.putExtra("i",images.get(i).getImage());
+                                 startActivity(intent1);
+                             }
+                             Intent intent1=new Intent(UserSiteDetailActivity.this,ImageViewActivity.class);
+                             intent1.putExtra("i",siteListModel.getImage());
+                             startActivity(intent1);
 
-                        }
-                    });
+                         }
+
+                     });
                 } else {
                     progressBar.setVisibility(View.GONE);
                     slideModels.add(new SlideModel(R.drawable.plotimage2, siteListModel.getName(), ScaleTypes.FIT));
                     imageSlider.setImageList(slideModels, ScaleTypes.FIT);
-
                 }
-
             }
             @Override
             public void onFailure(Call<ArrayList<ImageModel>> call, Throwable t) {

@@ -17,14 +17,50 @@
             android:id="@+id/llScroll"
             android:orientation="vertical">
 
+            <com.jackandphantom.circularimageview.CircleImage
+                android:layout_width="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/app_icon"
+                android:layout_height="100dp"/>
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="5dp"
+    android:divider="@drawable/divider"
+    android:showDividers="end"
+    >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plot Owner Name"
+                android:layout_marginTop="10dp"
+                android:textSize="10dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pramod Verma"
                 android:id="@+id/username"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"/>
+</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:divider="@drawable/divider"
+                android:showDividers="end">
+    <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
                 android:layout_marginTop="10dp"
-                android:textSize="25dp"
+                android:textSize="10dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"/>
 
@@ -32,9 +68,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Jai Vasanti nagar Indore"
-                android:layout_marginTop="10dp"
                 android:id="@+id/user_address"
-                android:textSize="15dp"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"/>
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:divider="@drawable/divider"
+            android:showDividers="end">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mobile Number."
+                android:layout_marginTop="10dp"
+                android:textSize="10dp"
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"/>
             <TextView
@@ -43,9 +93,9 @@
                 android:text="8359968242"
                 android:id="@+id/user_mobile"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:textSize="15dp"
+                android:textSize="20dp"
                 android:textColor="@color/black"/>
+        </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,23 +200,13 @@
                 android:textColor="@color/black"/>
             <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="200dp">
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:id="@+id/plotlist"/>
 </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Convert PDF"
-        android:textColor="@color/white"
-        android:onClick="pdf"
-        android:background="@drawable/button"
-        android:layout_margin="20dp"
-        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

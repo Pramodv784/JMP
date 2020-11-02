@@ -151,37 +151,17 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:textSize="15sp"
-        android:text="Plot Owner"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Plot Owner"
-        android:id="@+id/plot_owner"
-        android:textSize="20dp"
-        android:inputType="text"
-        android:layout_marginTop="5dp"
-        android:textAlignment="center"
-        android:padding="10dp"
-        android:background="@drawable/input_field"
-        android:gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="15sp"
         android:text="Plot Description"/>
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:hint="Description"
         android:id="@+id/plot_description"
         android:textSize="20dp"
         android:inputType="textMultiLine"
         android:layout_marginTop="5dp"
         android:padding="10dp"
-        android:background="@drawable/input_field2"
+        android:background="@drawable/input_field"
         />
 
 

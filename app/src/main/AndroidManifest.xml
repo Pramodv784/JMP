@@ -19,9 +19,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.BookListActivity" android:parentActivityName=".activity.AdminViewActivity"></activity>
-        <activity android:name=".activity.BookedPrintActivity" android:parentActivityName=".activity.BookListActivity" />
-        <activity android:name=".activity.ImageViewActivity" android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".activity.BookSinglePlotActivity"></activity>
+        <activity
+            android:name=".activity.BookListActivity"
+            android:parentActivityName=".activity.AdminViewActivity" />
+        <activity
+            android:name=".activity.BookedPrintActivity"
+            android:parentActivityName=".activity.BookListActivity" />
+        <activity
+            android:name=".activity.ImageViewActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activity.PlotSummaryListActivity"
             android:parentActivityName=".activity.PlotDetailActivity"
@@ -112,7 +119,8 @@
             android:name=".activity.AddSiteActivity"
             android:parentActivityName=".activity.AdminViewActivity" />
         <activity
-            android:name=".activity.UserLoginActivity" android:parentActivityName=".activity.HomeActivity"
+            android:name=".activity.UserLoginActivity"
+            android:parentActivityName=".activity.HomeActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.SignupActivity"
