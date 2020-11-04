@@ -8,9 +8,8 @@
             android:title="LOGIN"/>
         <item
             android:id="@+id/admin_control"
-            android:icon="@drawable/admin_icon"
+            android:icon="@drawable/profile_icon"
             android:visible="true"
-
             android:iconTint="@color/navi_icon"
             android:title="ADMIN CONTROL" />
 

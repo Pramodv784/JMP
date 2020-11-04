@@ -44,10 +44,10 @@
                 app:icon="@drawable/call_icon2"
                 android:layout_marginRight="20dp"
                 app:elevation="1dp"
+                android:id="@+id/callbtn"
                 app:iconTint="@color/white"
                 android:adjustViewBounds="true"
                 android:clickable="true"
-                android:onClick="call"
                 app:maxImageSize="64dp"
                 app:backgroundTint="@color/colorPrimary"
                 android:backgroundTint="@color/colorPrimary"
@@ -147,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_margin="15dp"
             android:id="@+id/relative"
-            android:background="@drawable/layout"
+            android:background="@drawable/btn_layout"
             android:layout_height="250dp">
             <ProgressBar
                 android:layout_width="wrap_content"

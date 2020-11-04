@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "539592509065-14ndhuovqi2270crj6p3053j3jdppl3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.skyheight",
+            "certificate_hash": "38908d73700f068b8e484bb518616acce3cffb75"
+          }
+        },
+        {
           "client_id": "539592509065-ej367eqtod48idp1pi3d5horu2mois43.apps.googleusercontent.com",
           "client_type": 3
         }

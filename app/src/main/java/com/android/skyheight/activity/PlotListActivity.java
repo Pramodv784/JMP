@@ -19,6 +19,7 @@ import com.android.skyheight.utils.ConstantClass;
 import com.android.skyheight.utils.Prefrence;
 import com.android.skyheight.utils.SiteUtils;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,16 +37,25 @@ public class PlotListActivity extends AppCompatActivity {
     FloatingActionButton addbtn;
     SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<PlotListModel> plotList = new ArrayList<PlotListModel>();
+    ExtendedFloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plot_list);
         recyclerView = findViewById(R.id.recycle_view);
+        fab=findViewById(R.id.addbtn);
         yourprefrence=Prefrence.getInstance(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         progressBar= findViewById(R.id.progressbar);
         swipeRefreshLayout=findViewById(R.id.refresh);
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(PlotListActivity.this,AddPlotActivity.class);
+                intent.putExtra("site_id",yourprefrence.getData(SiteUtils.ID));
+                startActivity(intent);
+            }
+        });
 
 
         plotlist();
@@ -93,10 +103,5 @@ public class PlotListActivity extends AppCompatActivity {
         });
     }
 
-    public void addplot(View view) {
-        Intent intent= new Intent(PlotListActivity.this,AddPlotActivity.class);
-        intent.putExtra("site_id",id);
-        startActivity(intent);
 
-    }
 }

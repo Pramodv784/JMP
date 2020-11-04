@@ -29,13 +29,18 @@
             app:title="JMP">
 
         </androidx.appcompat.widget.Toolbar>
-
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/refresh"
+            android:layout_below="@+id/toolbar"
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
             android:orientation="vertical">
+
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_view_container"
@@ -48,6 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
                     <include layout="@layout/item"/>
                     <include layout="@layout/item"/>
                     <include layout="@layout/item"/>
@@ -55,22 +61,18 @@
                     <include layout="@layout/item"/>
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:layout_width="match_parent"
-                android:id="@+id/refresh"
-                android:layout_below="@+id/toolbar"
-                android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/recycle"
                 android:scrollbars="vertical"
                 />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
         </LinearLayout>
 
-
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView

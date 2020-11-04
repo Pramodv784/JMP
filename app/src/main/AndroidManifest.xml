@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.BookSinglePlotActivity"></activity>
+        <activity android:name=".activity.OtpRequestActivity"></activity>
+        <activity android:name=".activity.BookSinglePlotActivity" />
         <activity
             android:name=".activity.BookListActivity"
             android:parentActivityName=".activity.AdminViewActivity" />

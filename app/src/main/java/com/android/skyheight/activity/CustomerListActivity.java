@@ -24,6 +24,8 @@ import com.android.skyheight.model.DeleteModel;
 import com.android.skyheight.model.UserList;
 import com.android.skyheight.utils.ConstantClass;
 import com.android.skyheight.utils.Prefrence;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class CustomerListActivity extends AppCompatActivity{
     UserAdaptor userAdaptor;
     ProgressBar progressBar;
     Prefrence yourprefrence;
+    ExtendedFloatingActionButton fab;
     ArrayList<UserList> userlist = new ArrayList<UserList>();
 
 
@@ -51,10 +54,17 @@ public class CustomerListActivity extends AppCompatActivity{
         recyclerView = (RecyclerView) findViewById(R.id.recycle_view2);
         relativeLayout=findViewById(R.id.relative_layout2);
         progressBar = findViewById(R.id.progressbar);
+        fab=findViewById(R.id.addbtn);
         yourprefrence = Prefrence.getInstance(CustomerListActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         userlist();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CustomerListActivity.this,SignupActivity.class));
+            }
+        });
     }
     private void userlist() {
         Call<ArrayList<UserList>> userResponseCall = ApiClient.getUserService()
@@ -146,7 +156,5 @@ public class CustomerListActivity extends AppCompatActivity{
         });
     }
 
-    public void adduser(View view) {
-        startActivity(new Intent(CustomerListActivity.this,SignupActivity.class));
-    }
+
 }

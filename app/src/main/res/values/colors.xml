@@ -15,4 +15,5 @@
     <color name="card">#6B48B7</color>
     <color name="navi_icon">#9A9A9A</color>
     <color name="placeholder_bg">#dddddd</color>
+    <color name="btn_color">#B5B5B5</color>
 </resources>

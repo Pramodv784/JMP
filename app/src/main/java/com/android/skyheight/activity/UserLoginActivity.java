@@ -44,6 +44,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -53,44 +54,36 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserLoginActivity extends AppCompatActivity {
-    EditText mobile, password,mobile_number,otpverify;
+    EditText mobile,mobile_number,otpverify;
     Prefrence yourprefrence;
     RelativeLayout relativeLayout;
     ProgressBar progressBar;
     TextView login, skip;
     ConstraintLayout constraintLayout;
-    private PhoneAuthProvider.ForceResendingToken mResendToken;
+    String mob;
     TextView resend;
     Button send;
-
-    FirebaseAuth mAuth;
-    private String mVerificationId;
-    View view;
- String id;
+   ShowHidePasswordEditText password;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
         mobile = findViewById(R.id.mobile);
-        password = findViewById(R.id.password);
+        password = (ShowHidePasswordEditText) findViewById(R.id.password);
         relativeLayout = findViewById(R.id.relative);
         progressBar = findViewById(R.id.progressbar);
         login = findViewById(R.id.login);
         constraintLayout = findViewById(R.id.constraint);
-        //view =findViewById(R.id.myprogressbutton);
+        password.setTintColor(Color.parseColor("#3DDC84"));
         yourprefrence = Prefrence.getInstance(UserLoginActivity.this);
-            mAuth=FirebaseAuth.getInstance();
-        // password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        //password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-       // sendVerificationCode();
            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         password.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 // TODO Auto-generated method stub
                 if (s.toString().length() == 0) {
-                    constraintLayout.setBackgroundResource(R.drawable.layout);
+                    constraintLayout.setBackgroundResource(R.drawable.btn_layout);
                 }
             }
 
@@ -221,86 +214,55 @@ public class UserLoginActivity extends AppCompatActivity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.setContentView(R.layout.forgetpassword_dialog);
-        resend = dialogView.findViewById(R.id.resend);
+
         send = dialogView.findViewById(R.id.send);
-        mobile_number=dialogView.findViewById(R.id.mobile_number);
-        otpverify=dialogView.findViewById(R.id.otpverify);
+        mobile_number=dialogView.findViewById(R.id.mobile);
         alertDialog.show();
-      /*  send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(TextUtils.isEmpty(mobile_number.getText().toString())){
-                    Toast.makeText(getApplicationContext(),"Enter mobile Number",Toast.LENGTH_LONG).show();
-                }else
-                if (otpverify.getText().toString().replace(" ","").length()!=6){
-                    Toast.makeText(getApplicationContext(),"Enter OTP ",Toast.LENGTH_LONG).show();
-                }
-                else{
-                    //loader.setVisibility(View.VISIBLE);
-                    PhoneAuthCredential credential = PhoneAuthProvider.getCredential(id,otpverify.getText().toString().replace(" ","") );
-                    signInWithPhoneAuthCredential(credential);
-                }
-            }
-        });*/
+          mob=mobile_number.getText().toString();
+       mobile_number.addTextChangedListener(new TextWatcher() {
+           @Override
+           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    }
+           }
 
-   /* private void sendVerificationCode() {
-        new CountDownTimer(60000, 1000) {
+           @Override
+           public void onTextChanged(CharSequence s, int start, int before, int count) {
+               if (s.toString().length() > 10) {
+                  mobile_number.setError("Enter correct mobile number");
+                  mobile_number.requestFocus();
 
-            @Override
-            public void onTick(long l) {
-                resend.setText("" + l / 1000);
-                resend.setEnabled(false);
-            }
+               }
+           }
 
-            @Override
-            public void onFinish() {
-                resend.setText("Resend");
-                resend.setEnabled(true);
-            }
-        }.start();
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(String.valueOf(mobile_number), 60, TimeUnit.SECONDS,
-                this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                    @Override
-                    public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                        signInWithPhoneAuthCredential(phoneAuthCredential);
-                    }
+           @Override
+           public void afterTextChanged(Editable s) {
 
-                    @Override
-                    public void onVerificationFailed(@NonNull FirebaseException e) {
-                        Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
-                    }
+           }
+       });
+        Log.i("data","mobile>>"+mob);
 
-                    @Override
-                    public void onCodeSent(@NonNull String id, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                        UserLoginActivity.this.id=id;
-                    }
-                });
+           send.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   if (mobile_number.getText().toString().length()==10) {
+                       if (TextUtils.isEmpty(mobile_number.getText().toString())) {
+                           Toast.makeText(getApplicationContext(), "Enter mobile Number", Toast.LENGTH_LONG).show();
+                       } else {
+                           Intent intent = new Intent(UserLoginActivity.this, OtpRequestActivity.class);
+                           intent.putExtra("mobile", mobile_number.getText().toString());
+                           startActivity(intent);
+                       }
+
+                   }
+                   else {
+                       mobile_number.setError("Enter correct mobile number");
+                       mobile_number.requestFocus();
+                   }
+               }
+           });
+       }
 
 
 
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //loader.setVisibility(View.GONE);
-                        if (task.isSuccessful()) {
-
-                            Intent intent = new Intent(UserLoginActivity.this, HomeActivity.class);
-                            intent.putExtra("mobile", getIntent().getStringExtra("mobile"));
-                            startActivity(intent);
-                            finish();
-                            FirebaseUser user = task.getResult().getUser();
-
-                        } else {
-                            Toast.makeText(UserLoginActivity.this, "Verification Failed", Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                });
-    }*/
-}

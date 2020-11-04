@@ -74,6 +74,8 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging:17.4.0"
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
     implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.github.aabhasr1:OtpView:v1.1.2'
+    implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
 
 
 }

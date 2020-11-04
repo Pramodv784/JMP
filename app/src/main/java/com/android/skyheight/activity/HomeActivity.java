@@ -232,6 +232,7 @@ public class HomeActivity  extends AppCompatActivity
                 startActivity(new Intent(HomeActivity.this, UserProfileActivity.class));
                 break;
             case R.id.logout:
+
                 logout();
                 break;
             case R.id.share:
@@ -245,6 +246,8 @@ public class HomeActivity  extends AppCompatActivity
                 break;
             case R.id.book_summary:
                 startActivity(new Intent(HomeActivity.this,BookListActivity.class));
+                break;
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
         drawer.closeDrawer(GravityCompat.START);
@@ -270,7 +273,11 @@ public class HomeActivity  extends AppCompatActivity
     private void logout() {
         yourprefrence.clear();
         Log.i("logout","logdata>>"+yourprefrence.getData(ConstantClass.ID));
-        startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+        Intent intent=new Intent(HomeActivity.this, UserLoginActivity.class);
+
+        startActivity(intent);
+
+
         // Toast.makeText(getApplicationContext(),"Email"+yourprefrence.getData(ConstantClass.EMAIL),Toast.LENGTH_SHORT).show();
     }
     @Override

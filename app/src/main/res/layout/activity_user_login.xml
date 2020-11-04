@@ -47,6 +47,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:hint="Enter Mobile Number"
+                    android:maxLength="10"
                     android:drawablePadding="10dp"
                     android:drawableRight="@drawable/mobile_icon"
                     android:padding="15dp"
@@ -56,36 +57,25 @@
                     android:textColor="@color/black"
                     android:inputType="number"
                   />
-                <com.marlonmafra.android.widget.EditTextPassword
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/password"
-                    android:background="@drawable/input_field"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginStart="20dp"
-                    android:hint="Enter Password"
-                    android:drawablePadding="10dp"
-                    android:fontFamily="sans-serif-light"
-                    app:iconPosition="right"
-
-                    app:hidePasswordIcon="@drawable/eye_icon"
-                    app:showPasswordIcon="@drawable/eye_close_icon"
-                    android:padding="15dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:textStyle="normal"
-
-                    android:textColor="@color/black"
-                    android:inputType="textPassword"
-                    />
+                        <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/password"
+                            android:padding="15dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/input_field"
+                            android:hint="Password"
+                            />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Forget Password ?"
+                    android:text="Forgot Password ?"
                     android:onClick="forgetpass"
                     android:layout_marginTop="5dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_gravity="end"
+                    android:layout_marginLeft="40dp"
+                    android:layout_gravity="left"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"/>
                     </LinearLayout>
                 </ScrollView>
@@ -94,7 +84,7 @@
                         android:id="@+id/constraint"
                         android:onClick="ulogin"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/layout"
+                        android:background="@drawable/btn_layout"
                         android:layout_marginEnd="20dp"
                         android:layout_marginStart="20dp"
                         android:layout_height="wrap_content"
@@ -117,7 +107,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Login"
-                            android:textColor="@color/navi_icon"
+                            android:textColor="@color/white"
                             android:gravity="center"
                             android:id="@+id/login"
                             android:padding="15dp"

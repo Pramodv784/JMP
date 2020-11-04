@@ -41,6 +41,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.ItemClickListener;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
@@ -64,6 +65,7 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
     RecyclerView recyclerView;
     List<PlotListModel> siteGrid;
     RelativeLayout relativeLayout;
+    ExtendedFloatingActionButton callbtn;
     ArrayList<PlotListModel> plotList = new ArrayList<PlotListModel>();
     ProgressBar progressBar2;
     ArrayList<ImageModel> images = new ArrayList<ImageModel>();
@@ -78,6 +80,7 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
         owner1 = findViewById(R.id.owner1);
         area = findViewById(R.id.pplot_area);
         price = findViewById(R.id.price);
+        callbtn=findViewById(R.id.callbtn);
         relativeLayout = findViewById(R.id.relative);
         imageSlider = findViewById(R.id.imageslider);
         location = findViewById(R.id.location);
@@ -148,9 +151,12 @@ public class UserSiteDetailActivity extends AppCompatActivity implements Recycle
                 downloadpdf();
             }
         });
-    }
-    public void call(View view) {
-        callPhoneNumber();
+        callbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhoneNumber();
+            }
+        });
     }
 
     @Override

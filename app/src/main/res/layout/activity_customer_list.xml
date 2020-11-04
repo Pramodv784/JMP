@@ -32,7 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:id="@+id/addbtn"
-       android:onClick="adduser"
         android:text="Add User"
         android:textAllCaps="false"
         android:textSize="15dp"
