@@ -38,6 +38,7 @@ String sit;
 ProgressBar progressBar;
     ArrayList<UserList> brokerlist = new ArrayList<>();
     ArrayList<String> allbroker = new ArrayList<String>();
+    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ ProgressBar progressBar;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         sit=intent.getStringExtra("site_id");
+        allbroker.add("Select Broker");
 
     }
 
@@ -72,7 +74,7 @@ ProgressBar progressBar;
                 for(int i=0;i<brokerlist.size();i++){
 
                      allbroker.add(brokerlist.get(i).getUser_name().toString());
-                     broker_id=brokerlist.get(i).getId();
+
 
                 }
                     ArrayAdapter<String> aa = new
@@ -109,6 +111,8 @@ ProgressBar progressBar;
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         brokerselected= (String) parent.getItemAtPosition(position);
+        position=parent.getSelectedItemPosition();
+
     }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -118,10 +122,8 @@ ProgressBar progressBar;
         String plotno=plot_number.getEditText().getText().toString().trim();
         String size=plot_size.getEditText().getText().toString().trim();
         String descrip=plot_description.getEditText().getText().toString().trim();
-
-
-
-
+        String broker=spinner.getSelectedItem().toString().trim();
+        broker_id=brokerlist.get(position).getId();
 
         if (plotno.isEmpty())
         {
@@ -131,11 +133,18 @@ ProgressBar progressBar;
         {
             plot_size.setError("Enter the plot size");
         }
-
-        else {
+        else if (broker.equals("Select Broker"))
+        {
+            broker=null;
             progressBar.setVisibility(View.VISIBLE);
 
-            PlotModel plotModel= new PlotModel(plotno,size,descrip,broker_id,yourprefrence.getData(SiteUtils.ID));
+            PlotModel plotModel= new PlotModel(plotno,size,descrip,broker,yourprefrence.getData(SiteUtils.ID));
+            addsingleplot(plotModel);
+        }
+        else {
+            broker=broker_id;
+            progressBar.setVisibility(View.VISIBLE);
+            PlotModel plotModel= new PlotModel(plotno,size,descrip,broker,yourprefrence.getData(SiteUtils.ID));
             addsingleplot(plotModel);
         }
 
@@ -167,7 +176,6 @@ ProgressBar progressBar;
             }
         });
     }
-
 
 
 }

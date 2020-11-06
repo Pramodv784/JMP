@@ -42,6 +42,7 @@ public class AddPartnerSiteActivity extends AppCompatActivity implements
     ProgressBar progressBar;
     ArrayList<UserList> partnerlist = new ArrayList<>();
     ArrayList<String> allpartner = new ArrayList<String>();
+    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class AddPartnerSiteActivity extends AppCompatActivity implements
         spinner.setOnItemSelectedListener(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-
+        allpartner.add("Select Partner");
         sit=intent.getStringExtra("site");
        // site_name.setText(siteListModel.getName());
 
@@ -101,6 +102,7 @@ public class AddPartnerSiteActivity extends AppCompatActivity implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         patnerselected= (String) parent.getItemAtPosition(position);
+        position=parent.getSelectedItemPosition();
     }
 
     @Override
@@ -112,8 +114,8 @@ public class AddPartnerSiteActivity extends AppCompatActivity implements
     public void addpartner_in_site(View view) {
 
             String partnerselected=spinner.getSelectedItem().toString();
-            int position=spinner.getSelectedItemPosition();
             partner_id=partnerlist.get(position).getId();
+
 
         if (partnerselected.equals("Select Partner")) {
             progressBar.setVisibility(View.GONE);

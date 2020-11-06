@@ -75,11 +75,13 @@ public class UpdateSiteActivity extends AppCompatActivity implements
         yourprefrence = Prefrence.getInstance(UpdateSiteActivity.this);
         pick_image = findViewById(R.id.pick_image);
         image = findViewById(R.id.image1);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Intent intent = getIntent();
-        site_id=intent.getStringExtra("site");
+
+        site_id=yourprefrence.getData(SiteUtils.ID);
         getsite(site_id);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
+
 
     private void getsite(String site_id) {
         Call<SiteListModel> userResponse =ApiClient.getUserService()

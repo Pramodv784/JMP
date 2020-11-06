@@ -335,7 +335,6 @@ public class PlotDetailActivity extends AppCompatActivity implements
             @Override
             public void onFailure(Call<PlotUpdateModel> call, Throwable t) {
                 Toast.makeText(getApplicationContext(),"Some thing went wrong",Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -350,7 +349,6 @@ public class PlotDetailActivity extends AppCompatActivity implements
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
     /*public void  {
         startActivity(new Intent(PlotDetailActivity.this,CalculatorActivity.class));
     }*/
